@@ -1,0 +1,10 @@
+services:
+  gateway:
+    container_name: gateway_service
+    build:
+      context: .
+      dockerfile: Dockerfile
+    ports:
+      - "15432:15432"
+    environment:
+      - GIN_PORT=15432
