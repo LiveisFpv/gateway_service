@@ -37,10 +37,12 @@ func NewHTTPServer(port string, a *app.App) Server {
 	return s
 }
 
+// Start GIN and it blocked if error happened
 func (s *Server) Listen() error {
 	return s.app.Run(s.port)
 }
 
+// Only for tests
 func (s *Server) Handler() http.Handler {
 	return s.app
 }
