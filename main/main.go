@@ -81,9 +81,11 @@ func main() {
 	if err != nil {
 		logger.WithError(err).Fatalf("cant connect to grpc_auth service")
 	}
-
 	usecase := app.NewApp(repo, client_auth)
-	server := httpgin.NewHTTPServer(":15432", usecase)
+	port := getEnv("GATEWAY_PORT", "18000")
+	port = fmt.Sprintf(":%s", port)
+	server := httpgin.NewHTTPServer(port, usecase)
+	logger.Infof("Start Gateway Service")
 	err = server.Listen()
 	if err != nil {
 		panic(err)

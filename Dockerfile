@@ -1,11 +1,11 @@
 FROM golang:1.24
 
+WORKDIR /app
+
 COPY . .
 
 RUN go mod download
 
-WORKDIR /main
+RUN go build -o main main/main.go
 
-RUN go build -o main .
-
-CMD ["./main"]
+CMD ["main/main"]

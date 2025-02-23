@@ -5,6 +5,28 @@ services:
       context: .
       dockerfile: Dockerfile
     ports:
-      - "15432:15432"
+      - "18000:18000"
     environment:
-      - GIN_PORT=15432
+      - GATEWAY_PORT=18000
+      - DB_HOST=db
+      - DB_USER=postgres
+      - DB_PORT=5432
+      - DB_PASSWORD=0000
+      - DB_NAME=gateway_db
+      - AUTH_SERVICE_ADDRESS=localhost:15432
+      - AUTH_SERVICE_TIMEOUT=15s
+      - AUTH_SERVICE_RETRIES=3
+    depends_on:
+      - db
+  db:
+    container_name: gateway_db
+    image: postgres:17
+    environment:
+      - POSTGRES_USER=postgres
+      - POSTGRES_PASSWORD=0000
+      - POSTGRES_DB=gateway_db
+    volumes:
+      - db_data:/var/lib/postgresql/data
+
+volumes:
+  db_data:
