@@ -50,7 +50,6 @@ func New(
 
 	//Create grpc-client auth_service
 	grpcClient := sso.NewAuthClient(conn)
-
 	return &Client{
 		api: grpcClient,
 	}, nil

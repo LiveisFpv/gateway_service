@@ -2,6 +2,7 @@ package httpgin
 
 import (
 	"gateway_service/internal/app"
+	"gateway_service/internal/domain"
 	"net/http"
 
 	"github.com/gin-gonic/gin"
@@ -23,7 +24,10 @@ func auth(c *gin.Context, a *app.App) {
 		c.JSON(http.StatusUnauthorized, ErrorResponse(err))
 		return
 	}
-	c.JSON(http.StatusOK, AuthSuccessResponce(token))
+
+	c.JSON(http.StatusOK, AuthSuccessResponce(&domain.Token{
+		Token: token,
+	}))
 }
 
 /*

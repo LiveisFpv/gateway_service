@@ -2,8 +2,8 @@ package app
 
 import (
 	"context"
-	"gateway_service/internal/domain"
-	grpc "gateway_service/internal/ports/gRPC"
+	"fmt"
+	"gateway_service/internal/ports/grpc"
 	"gateway_service/internal/repository"
 
 	"github.com/LiveisFPV/sso_v1/gen/go/sso"
@@ -11,33 +11,40 @@ import (
 
 type App struct {
 	repo        repository.Repository
-	client_auth grpc.GRPC_auth
+	client_auth *grpc.Client
 }
 
-func NewApp(repo repository.Repository, client_auth grpc.GRPC_auth) *App {
+func NewApp(repo repository.Repository, client_auth *grpc.Client) *App {
 	return &App{
 		repo:        repo,
 		client_auth: client_auth,
 	}
 }
 
-// Send to Auth-service request
-// TODO
-func (a *App) Auth(ctx context.Context, email, password string) (*domain.Token, error) {
-	req := sso.LoginRequest{
+func (a *App) Auth(ctx context.Context, email, password string) (string, error) {
+	req := &sso.LoginRequest{
 		Email:    email,
 		Password: password,
 	}
-	a.client_auth.Login(req)
+
+	resp, err := a.client_auth.Login(ctx, req)
+	if err != nil {
+		return "", fmt.Errorf("login failed: %w", err)
+	}
+
+	return resp.Token, nil
 }
 
-// Send to Auth-service request
-// TODO
+// Реализация Register
 func (a *App) Register(ctx context.Context, email, password string) error {
-	req := sso.RegisterRequest{
+	req := &sso.RegisterRequest{
 		Email:    email,
 		Password: password,
 	}
-	a.client_auth.Register(req)
+
+	_, err := a.client_auth.Register(ctx, req)
+	if err != nil {
+		return fmt.Errorf("registration failed: %w", err)
+	}
 	return nil
 }
