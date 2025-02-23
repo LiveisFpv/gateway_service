@@ -25,6 +25,7 @@ func (a *App) Auth(ctx context.Context, email, password string) (string, error) 
 	req := &sso.LoginRequest{
 		Email:    email,
 		Password: password,
+		AppId:    1,
 	}
 
 	resp, err := a.client_auth.Login(ctx, req)
@@ -35,7 +36,6 @@ func (a *App) Auth(ctx context.Context, email, password string) (string, error) 
 	return resp.Token, nil
 }
 
-// Реализация Register
 func (a *App) Register(ctx context.Context, email, password string) error {
 	req := &sso.RegisterRequest{
 		Email:    email,

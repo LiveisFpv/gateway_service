@@ -1,5 +1,5 @@
 services:
-  gateway:
+  gateway_service:
     container_name: gateway_service
     build:
       context: .
@@ -13,11 +13,15 @@ services:
       - DB_PORT=5432
       - DB_PASSWORD=0000
       - DB_NAME=gateway_db
-      - AUTH_SERVICE_ADDRESS=localhost:15432
+      - AUTH_SERVICE_ADDRESS=auth_service:15432
       - AUTH_SERVICE_TIMEOUT=15s
       - AUTH_SERVICE_RETRIES=3
     depends_on:
       - db
+    networks:
+      - grpc_network
+      - db_network
+
   db:
     container_name: gateway_db
     image: postgres:17
@@ -27,6 +31,16 @@ services:
       - POSTGRES_DB=gateway_db
     volumes:
       - db_data:/var/lib/postgresql/data
+    networks:
+      - db_network
 
 volumes:
   db_data:
+
+# Before start create a network with command
+# docker network create grpc_network
+networks:
+  grpc_network:
+    external: true
+  db_network:
+    driver: bridge

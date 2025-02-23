@@ -7,17 +7,17 @@ import (
 )
 
 type RegisterRequest struct {
-	Email    string
-	Password string
+	Email    string `json:"email"`
+	Password string `json:"password"`
 }
 
 type AuthRequest struct {
-	Email    string
-	Password string
+	Email    string `json:"email"`
+	Password string `json:"password"`
 }
 
 type AuthResponse struct {
-	token string
+	Token string `json:"token"`
 }
 
 // Interface for all responses
@@ -39,7 +39,7 @@ func SuccessResponse(data ResponseData) *gin.H {
 
 func AuthSuccessResponce(token *domain.Token) *gin.H {
 	response := AuthResponse{
-		token: token.Token,
+		Token: token.Token,
 	}
 	return SuccessResponse(response)
 }

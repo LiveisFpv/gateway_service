@@ -64,7 +64,7 @@ func main() {
 
 	//Create connection to GRPC
 
-	address := getEnv("AUTH_SERVICE_ADDRESS", "15432")
+	address := getEnv("AUTH_SERVICE_ADDRESS", "localhost:15432")
 	timeout := getEnv("AUTH_SERVICE_TIMEOUT", "15s")
 	TTL, err := time.ParseDuration(timeout)
 	if err != nil {
