@@ -17,9 +17,6 @@ type App struct {
 	repo           repository.Repository
 	client_auth    *authorization.Client
 	client_country *country.Client
-	repo           repository.Repository
-	client_auth    *authorization.Client
-	client_country *country.Client
 }
 
 func NewApp(repo repository.Repository, client_auth *authorization.Client, client_country *country.Client) *App {
