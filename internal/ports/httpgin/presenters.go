@@ -95,11 +95,12 @@ func GetCountryByIdSuccessResponce(country *domain.Country) *gin.H {
 	}
 	return SuccessResponse(response)
 }
-func UpdateCountryByIdSuccessResponce(Country_title, Country_capital, Country_area string) *gin.H {
+
+func UpdateCountryByIdSuccessResponce(country *domain.Country) *gin.H {
 	response := Update_CountryById_Response{
-		Country_title:   Country_title,
-		Country_capital: Country_capital,
-		Country_area:    Country_area,
+		Country_title:   country.Country_title,
+		Country_capital: country.Country_capital,
+		Country_area:    country.Country_area,
 	}
 	return SuccessResponse(response)
 }
