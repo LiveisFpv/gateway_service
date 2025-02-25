@@ -20,6 +20,48 @@ type AuthResponse struct {
 	Token string `json:"token"`
 }
 
+type Get_CountryById_Request struct {
+	Country_id int
+}
+
+type Get_CountryById_Response struct {
+	Country_id      int
+	Country_title   string
+	Country_capital string
+	Country_area    string
+}
+
+type Create_Country_Request struct {
+	Country_title   string
+	Country_capital string
+	Country_area    string
+}
+
+type Create_Country_Response struct {
+	Country_id int
+}
+
+type Update_CountryById_Request struct {
+	Country_id      int
+	Country_title   string
+	Country_capital string
+	Country_area    string
+}
+
+type Update_CountryById_Response struct {
+	Country_title   string
+	Country_capital string
+	Country_area    string
+}
+
+type Delete_CountryById_Request struct {
+	Country_id int
+}
+
+type Delete_CountryById_Response struct {
+	Country_title string
+}
+
 // Interface for all responses
 type ResponseData interface{}
 
@@ -40,6 +82,48 @@ func SuccessResponse(data ResponseData) *gin.H {
 func AuthSuccessResponce(token *domain.Token) *gin.H {
 	response := AuthResponse{
 		Token: token.Token,
+	}
+	return SuccessResponse(response)
+}
+
+func GetCountryByIdSuccessResponce(country *domain.Country) *gin.H {
+	response := Get_CountryById_Response{
+		Country_id:      country.Country_id,
+		Country_title:   country.Country_title,
+		Country_capital: country.Country_capital,
+		Country_area:    country.Country_area,
+	}
+	return SuccessResponse(response)
+}
+func UpdateCountryByIdSuccessResponce(Country_title, Country_capital, Country_area string) *gin.H {
+	response := Update_CountryById_Response{
+		Country_title:   Country_title,
+		Country_capital: Country_capital,
+		Country_area:    Country_area,
+	}
+	return SuccessResponse(response)
+}
+func CreateCountryByIdSuccessResponce(Country_id int) *gin.H {
+	response := Create_Country_Response{
+		Country_id: Country_id,
+	}
+	return SuccessResponse(response)
+}
+func DeleteCountryByIdSuccessResponce(Country_title string) *gin.H {
+	response := Delete_CountryById_Response{
+		Country_title: Country_title,
+	}
+	return SuccessResponse(response)
+}
+func GetAllCountrySuccessResponse(countries []*domain.Country) *gin.H {
+	var response []Get_CountryById_Response
+	for _, country := range countries {
+		response = append(response, Get_CountryById_Response{
+			Country_id:      country.Country_id,
+			Country_title:   country.Country_title,
+			Country_capital: country.Country_capital,
+			Country_area:    country.Country_area,
+		})
 	}
 	return SuccessResponse(response)
 }
