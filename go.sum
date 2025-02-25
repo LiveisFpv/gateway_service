@@ -2,6 +2,8 @@ github.com/LiveisFPV/sso_v1 v0.0.0-20250220075905-fc712ee23d07 h1:fnP+L0LDvNOBD3
 github.com/LiveisFPV/sso_v1 v0.0.0-20250220075905-fc712ee23d07/go.mod h1:cgt97svOFWm1lgxyRlJMDWPcq3ymVRGkdznD0CiPuBs=
 github.com/LiveisFpv/country_v1 v0.1.4 h1:il5EJShzkZ0TYaa0xgOPtcSINph1IX+udJpc3FvANes=
 github.com/LiveisFpv/country_v1 v0.1.4/go.mod h1:kyx6Vq4nuTRHOu2LACvkcj5V2pJXKL6ArGzQTLJCP6w=
+github.com/LiveisFpv/country_v1 v0.1.9 h1:ccQKWsb2r2NicE2sMGt6a5Sm6kfuB+SUskoDhVXaPsU=
+github.com/LiveisFpv/country_v1 v0.1.9/go.mod h1:kyx6Vq4nuTRHOu2LACvkcj5V2pJXKL6ArGzQTLJCP6w=
 github.com/bytedance/sonic v1.12.6 h1:/isNmCUF2x3Sh8RAp/4mh4ZGkcFAX/hLrzrK3AvpRzk=
 github.com/bytedance/sonic v1.12.6/go.mod h1:B8Gt/XvtZ3Fqj+iSKMypzymZxw/FVwgIGKzMzT9r/rk=
 github.com/bytedance/sonic/loader v0.1.1/go.mod h1:ncP89zfokxS5LZrJxl5z0UJcsk4M4yY2JpfqGeCtNLU=
