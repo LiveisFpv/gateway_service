@@ -72,7 +72,7 @@ func (a *App) Add_Country(ctx context.Context, countryTitle, countryCapital, cou
 }
 
 func (a *App) Get_CountryById(ctx context.Context, countryId int) (*domain.Country, error) {
-	req := &country_req.Get_CountryById_Requset{
+	req := &country_req.Get_CountryById_Request{
 		CountryId: int64(countryId),
 	}
 
@@ -81,6 +81,7 @@ func (a *App) Get_CountryById(ctx context.Context, countryId int) (*domain.Count
 		return nil, fmt.Errorf("Get country failed: %w", err)
 	}
 	return &domain.Country{
+		Country_id:      int(resp.CountryId),
 		Country_title:   resp.CountryTitle,
 		Country_capital: resp.CountryCapital,
 		Country_area:    resp.CountryArea,
@@ -98,6 +99,7 @@ func (a *App) Get_All_Country(ctx context.Context) (countries []*domain.Country,
 	countries = []*domain.Country{}
 	for _, country := range resp.Countries {
 		countries = append(countries, &domain.Country{
+			Country_id:      int(country.CountryId),
 			Country_title:   country.CountryTitle,
 			Country_capital: country.CountryCapital,
 			Country_area:    country.CountryArea,
@@ -117,6 +119,7 @@ func (a *App) Update_CountryById(ctx context.Context, country_id int) (country *
 	}
 
 	return &domain.Country{
+		Country_id:      country_id,
 		Country_title:   resp.CountryTitle,
 		Country_capital: resp.CountryCapital,
 		Country_area:    resp.CountryArea,

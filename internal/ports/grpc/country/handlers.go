@@ -15,7 +15,7 @@ func (c *Client) Add_Country(
 	return c.api.Add_Country(ctx, req)
 }
 
-func (c *Client) Get_CountryById(ctx context.Context, req *country.Get_CountryById_Requset) (resp *country.Get_CountryById_Response, err error) {
+func (c *Client) Get_CountryById(ctx context.Context, req *country.Get_CountryById_Request) (resp *country.Get_CountryById_Response, err error) {
 	return c.api.Get_CountryById(ctx, req)
 }
 func (c *Client) Get_All_Country(ctx context.Context, req *country.Get_All_Country_Request) (resp *country.Get_All_Country_Response, err error) {
