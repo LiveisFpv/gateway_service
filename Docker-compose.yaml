@@ -16,6 +16,9 @@ services:
       - AUTH_SERVICE_ADDRESS=auth_service:15432
       - AUTH_SERVICE_TIMEOUT=15s
       - AUTH_SERVICE_RETRIES=3
+      - COUNTRY_SERVICE_ADDRESS=country_service:14000
+      - COUNTRY_SERVICE_TIMEOUT=15s
+      - COUNTRY_SERVICE_RETRIES=3
     depends_on:
       - db
     networks:

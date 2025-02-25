@@ -9,18 +9,9 @@ import (
 	"gateway_service/internal/ports/grpc/country"
 	"gateway_service/internal/ports/httpgin"
 	"gateway_service/internal/repository"
-	"os"
 
 	"github.com/jackc/pgx/v5/pgxpool"
 )
-
-// Unpack env and if not seted use standart
-func getEnv(key, defaultValue string) string {
-	if value, exists := os.LookupEnv(key); exists {
-		return value
-	}
-	return defaultValue
-}
 
 // HERE ONLY START GATEWAY
 func main() {
