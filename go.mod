@@ -18,7 +18,7 @@ require (
 
 require (
 	github.com/LiveisFPV/sso_v1 v0.0.0-20250220075905-fc712ee23d07
-	github.com/LiveisFpv/country_v1 v0.1.4
+	github.com/LiveisFpv/country_v1 v0.1.9
 	github.com/bytedance/sonic v1.12.6 // indirect
 	github.com/bytedance/sonic/loader v0.2.1 // indirect
 	github.com/cloudwego/base64x v0.1.4 // indirect
