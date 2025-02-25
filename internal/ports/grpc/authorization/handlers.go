@@ -1,4 +1,4 @@
-package grpc
+package authorization
 
 import (
 	"context"

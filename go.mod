@@ -2,21 +2,23 @@ module gateway_service
 
 go 1.24.0
 
-require github.com/gin-gonic/gin v1.10.0
+require (
+	github.com/gin-gonic/gin v1.10.0
+	google.golang.org/grpc v1.70.0
+)
 
 require (
 	github.com/jackc/pgpassfile v1.0.0 // indirect
 	github.com/jackc/pgservicefile v0.0.0-20240606120523-5a60cdf6a761 // indirect
 	github.com/jackc/puddle/v2 v2.2.2 // indirect
 	github.com/kr/text v0.2.0 // indirect
-	github.com/stretchr/testify v1.10.0 // indirect
 	golang.org/x/sync v0.11.0 // indirect
 	google.golang.org/genproto/googleapis/rpc v0.0.0-20241202173237-19429a94021a // indirect
-	google.golang.org/grpc v1.70.0 // indirect
 )
 
 require (
 	github.com/LiveisFPV/sso_v1 v0.0.0-20250220075905-fc712ee23d07
+	github.com/LiveisFpv/country_v1 v0.1.4
 	github.com/bytedance/sonic v1.12.6 // indirect
 	github.com/bytedance/sonic/loader v0.2.1 // indirect
 	github.com/cloudwego/base64x v0.1.4 // indirect

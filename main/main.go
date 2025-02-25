@@ -4,7 +4,7 @@ import (
 	"context"
 	"fmt"
 	"gateway_service/internal/app"
-	"gateway_service/internal/ports/grpc"
+	"gateway_service/internal/ports/grpc/authorization"
 	"gateway_service/internal/ports/httpgin"
 	"gateway_service/internal/repository"
 	"os"
@@ -25,6 +25,9 @@ func getEnv(key, defaultValue string) string {
 	return defaultValue
 }
 
+// TODO!!! NEED REFACTOR
+// CONFIG ALL SERVICE ON ANOTHER FILES!!!
+// HERE ONLY START GATEWAY
 func main() {
 	//TODO START GIN WITH GRPC
 
@@ -76,7 +79,7 @@ func main() {
 		logger.WithError(err).Fatalf("cant parse retries")
 	}
 
-	client_auth, err := grpc.New(logger, address, TTL, retriesCount)
+	client_auth, err := authorization.New(logger, address, TTL, retriesCount)
 
 	if err != nil {
 		logger.WithError(err).Fatalf("cant connect to grpc_auth service")
