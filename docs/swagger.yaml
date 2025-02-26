@@ -87,6 +87,11 @@ paths:
       - application/json
       description: Удаляет страну
       parameters:
+      - description: Bearer token
+        in: header
+        name: Authorization
+        required: true
+        type: string
       - description: ID страны
         in: body
         name: country
@@ -107,6 +112,12 @@ paths:
       consumes:
       - application/json
       description: Возвращает страны
+      parameters:
+      - description: Bearer token
+        in: header
+        name: Authorization
+        required: true
+        type: string
       produces:
       - application/json
       responses:
@@ -124,6 +135,11 @@ paths:
       - application/json
       description: Добавляет страну
       parameters:
+      - description: Bearer token
+        in: header
+        name: Authorization
+        required: true
+        type: string
       - description: Данные страны
         in: body
         name: country
@@ -145,6 +161,11 @@ paths:
       - application/json
       description: Редактирует страну
       parameters:
+      - description: Bearer token
+        in: header
+        name: Authorization
+        required: true
+        type: string
       - description: Данные страны
         in: body
         name: country
@@ -159,6 +180,32 @@ paths:
           schema:
             $ref: '#/definitions/httpgin.Update_CountryById_Response'
       summary: Редактирование страны
+      tags:
+      - country
+  /api/v1/country/{country_id}:
+    get:
+      consumes:
+      - application/json
+      description: Возвращает страну
+      parameters:
+      - description: Bearer token
+        in: header
+        name: Authorization
+        required: true
+        type: string
+      - description: ID страны
+        in: path
+        name: country_id
+        required: true
+        type: integer
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            $ref: '#/definitions/httpgin.Get_CountryById_Response'
+      summary: Получение страны
       tags:
       - country
   /auth:
@@ -201,7 +248,7 @@ paths:
         "200":
           description: OK
           schema:
-            type: string
+            type: ""
       summary: Регистрирует пользователя
       tags:
       - auth

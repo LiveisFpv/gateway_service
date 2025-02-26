@@ -51,7 +51,7 @@ send 500 if is problem on Auth-service
 // @Accept json
 // @Produce json
 // @Param register body RegisterRequest true "Данные пользователя"
-// @Success 200 {string} ok 
+// @Success 200 {} ok
 // @Router /register [post]
 func register(c *gin.Context, a *app.App) {
 	var reqBody RegisterRequest

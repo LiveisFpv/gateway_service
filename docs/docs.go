@@ -28,6 +28,15 @@ const docTemplate = `{
                     "country"
                 ],
                 "summary": "Получение стран",
+                "parameters": [
+                    {
+                        "type": "string",
+                        "description": "Bearer token",
+                        "name": "Authorization",
+                        "in": "header",
+                        "required": true
+                    }
+                ],
                 "responses": {
                     "200": {
                         "description": "OK",
@@ -53,6 +62,13 @@ const docTemplate = `{
                 ],
                 "summary": "Редактирование страны",
                 "parameters": [
+                    {
+                        "type": "string",
+                        "description": "Bearer token",
+                        "name": "Authorization",
+                        "in": "header",
+                        "required": true
+                    },
                     {
                         "description": "Данные страны",
                         "name": "country",
@@ -86,6 +102,13 @@ const docTemplate = `{
                 "summary": "Добавление страну",
                 "parameters": [
                     {
+                        "type": "string",
+                        "description": "Bearer token",
+                        "name": "Authorization",
+                        "in": "header",
+                        "required": true
+                    },
+                    {
                         "description": "Данные страны",
                         "name": "country",
                         "in": "body",
@@ -118,6 +141,13 @@ const docTemplate = `{
                 "summary": "Удаление страны",
                 "parameters": [
                     {
+                        "type": "string",
+                        "description": "Bearer token",
+                        "name": "Authorization",
+                        "in": "header",
+                        "required": true
+                    },
+                    {
                         "description": "ID страны",
                         "name": "country",
                         "in": "body",
@@ -132,6 +162,45 @@ const docTemplate = `{
                         "description": "OK",
                         "schema": {
                             "$ref": "#/definitions/httpgin.Delete_CountryById_Response"
+                        }
+                    }
+                }
+            }
+        },
+        "/api/v1/country/{country_id}": {
+            "get": {
+                "description": "Возвращает страну",
+                "consumes": [
+                    "application/json"
+                ],
+                "produces": [
+                    "application/json"
+                ],
+                "tags": [
+                    "country"
+                ],
+                "summary": "Получение страны",
+                "parameters": [
+                    {
+                        "type": "string",
+                        "description": "Bearer token",
+                        "name": "Authorization",
+                        "in": "header",
+                        "required": true
+                    },
+                    {
+                        "type": "integer",
+                        "description": "ID страны",
+                        "name": "country_id",
+                        "in": "path",
+                        "required": true
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "OK",
+                        "schema": {
+                            "$ref": "#/definitions/httpgin.Get_CountryById_Response"
                         }
                     }
                 }
@@ -199,7 +268,7 @@ const docTemplate = `{
                     "200": {
                         "description": "OK",
                         "schema": {
-                            "type": "string"
+                            "type": ""
                         }
                     }
                 }

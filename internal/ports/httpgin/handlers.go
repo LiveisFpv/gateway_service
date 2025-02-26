@@ -17,9 +17,10 @@ import (
 // @Tags country
 // @Accept json
 // @Produce json
-// @Param country path int true "ID страны"
+// @Param Authorization header string true "Bearer token"
+// @Param country_id path int true "ID страны"
 // @Success 200 {object} Get_CountryById_Response
-// @Router /api/v1/country [get]
+// @Router /api/v1/country/{country_id} [get]
 func getCountryById(c *gin.Context, a *app.App) {
 	country_id, err := strconv.Atoi(c.Param("country_id"))
 	if err != nil {
@@ -40,6 +41,7 @@ func getCountryById(c *gin.Context, a *app.App) {
 // @Tags country
 // @Accept json
 // @Produce json
+// @Param Authorization header string true "Bearer token"
 // @Success 200 {object} []Get_CountryById_Response
 // @Router /api/v1/country [get]
 func getCountryAll(c *gin.Context, a *app.App) {
@@ -58,6 +60,7 @@ func getCountryAll(c *gin.Context, a *app.App) {
 // @Tags country
 // @Accept json
 // @Produce json
+// @Param Authorization header string true "Bearer token"
 // @Param country body Create_Country_Request true "Данные страны"
 // @Success 200 {object} Create_Country_Response
 // @Router /api/v1/country [post]
@@ -83,6 +86,7 @@ func createCountry(c *gin.Context, a *app.App) {
 // @Tags country
 // @Accept json
 // @Produce json
+// @Param Authorization header string true "Bearer token"
 // @Param country body Update_CountryById_Request true "Данные страны"
 // @Success 200 {object} Update_CountryById_Response
 // @Router /api/v1/country [put]
@@ -113,6 +117,7 @@ func updateCountryById(c *gin.Context, a *app.App) {
 // @Tags country
 // @Accept json
 // @Produce json
+// @Param Authorization header string true "Bearer token"
 // @Param country body Delete_CountryById_Request true "ID страны"
 // @Success 200 {object} Delete_CountryById_Response
 // @Router /api/v1/country [delete]
