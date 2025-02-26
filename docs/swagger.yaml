@@ -1,0 +1,255 @@
+basePath: /
+definitions:
+  httpgin.AuthRequest:
+    properties:
+      email:
+        type: string
+      password:
+        type: string
+    type: object
+  httpgin.AuthResponse:
+    properties:
+      token:
+        type: string
+    type: object
+  httpgin.Create_Country_Request:
+    properties:
+      country_area:
+        type: string
+      country_capital:
+        type: string
+      country_title:
+        type: string
+    type: object
+  httpgin.Create_Country_Response:
+    properties:
+      country_id:
+        type: integer
+    type: object
+  httpgin.Delete_CountryById_Request:
+    properties:
+      country_id:
+        type: integer
+    type: object
+  httpgin.Delete_CountryById_Response:
+    properties:
+      country_title:
+        type: string
+    type: object
+  httpgin.Get_CountryById_Response:
+    properties:
+      country_area:
+        type: string
+      country_capital:
+        type: string
+      country_id:
+        type: integer
+      country_title:
+        type: string
+    type: object
+  httpgin.RegisterRequest:
+    properties:
+      email:
+        type: string
+      password:
+        type: string
+    type: object
+  httpgin.Update_CountryById_Request:
+    properties:
+      country_area:
+        type: string
+      country_capital:
+        type: string
+      country_id:
+        type: integer
+      country_title:
+        type: string
+    type: object
+  httpgin.Update_CountryById_Response:
+    properties:
+      country_area:
+        type: string
+      country_capital:
+        type: string
+      country_title:
+        type: string
+    type: object
+host: localhost:18000
+info:
+  contact: {}
+  description: API с документацией Swagger
+  title: country API
+  version: "2.0"
+paths:
+  /api/v1/country:
+    delete:
+      consumes:
+      - application/json
+      description: Удаляет страну
+      parameters:
+      - description: Bearer token
+        in: header
+        name: Authorization
+        required: true
+        type: string
+      - description: ID страны
+        in: body
+        name: country
+        required: true
+        schema:
+          $ref: '#/definitions/httpgin.Delete_CountryById_Request'
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            $ref: '#/definitions/httpgin.Delete_CountryById_Response'
+      summary: Удаление страны
+      tags:
+      - country
+    get:
+      consumes:
+      - application/json
+      description: Возвращает страны
+      parameters:
+      - description: Bearer token
+        in: header
+        name: Authorization
+        required: true
+        type: string
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            items:
+              $ref: '#/definitions/httpgin.Get_CountryById_Response'
+            type: array
+      summary: Получение стран
+      tags:
+      - country
+    post:
+      consumes:
+      - application/json
+      description: Добавляет страну
+      parameters:
+      - description: Bearer token
+        in: header
+        name: Authorization
+        required: true
+        type: string
+      - description: Данные страны
+        in: body
+        name: country
+        required: true
+        schema:
+          $ref: '#/definitions/httpgin.Create_Country_Request'
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            $ref: '#/definitions/httpgin.Create_Country_Response'
+      summary: Добавление страну
+      tags:
+      - country
+    put:
+      consumes:
+      - application/json
+      description: Редактирует страну
+      parameters:
+      - description: Bearer token
+        in: header
+        name: Authorization
+        required: true
+        type: string
+      - description: Данные страны
+        in: body
+        name: country
+        required: true
+        schema:
+          $ref: '#/definitions/httpgin.Update_CountryById_Request'
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            $ref: '#/definitions/httpgin.Update_CountryById_Response'
+      summary: Редактирование страны
+      tags:
+      - country
+  /api/v1/country/{country_id}:
+    get:
+      consumes:
+      - application/json
+      description: Возвращает страну
+      parameters:
+      - description: Bearer token
+        in: header
+        name: Authorization
+        required: true
+        type: string
+      - description: ID страны
+        in: path
+        name: country_id
+        required: true
+        type: integer
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            $ref: '#/definitions/httpgin.Get_CountryById_Response'
+      summary: Получение страны
+      tags:
+      - country
+  /auth:
+    post:
+      consumes:
+      - application/json
+      description: Авторизует пользователя
+      parameters:
+      - description: Данные пользователя
+        in: body
+        name: auth
+        required: true
+        schema:
+          $ref: '#/definitions/httpgin.AuthRequest'
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            $ref: '#/definitions/httpgin.AuthResponse'
+      summary: Авторизация
+      tags:
+      - auth
+  /register:
+    post:
+      consumes:
+      - application/json
+      description: Регистрирует пользователя
+      parameters:
+      - description: Данные пользователя
+        in: body
+        name: register
+        required: true
+        schema:
+          $ref: '#/definitions/httpgin.RegisterRequest'
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            type: ""
+      summary: Регистрирует пользователя
+      tags:
+      - auth
+swagger: "2.0"

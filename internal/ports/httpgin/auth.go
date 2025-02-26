@@ -35,6 +35,15 @@ func auth(c *gin.Context, a *app.App) {
 Func send 200 if user registered
 send 500 if is problem on Auth-service
 */
+// Метод для регистрации пользователя
+// @Summary Регистрирует пользователя
+// @Description Регистрирует пользователя
+// @Tags auth
+// @Accept json
+// @Produce json
+// @Param register body RegisterRequest true "Данные пользователя"
+// @Success 200 {} ok
+// @Router /register [post]
 func register(c *gin.Context, a *app.App) {
 	var reqBody RegisterRequest
 	if err := c.ShouldBindJSON(&reqBody); err != nil {

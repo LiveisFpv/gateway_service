@@ -9,6 +9,17 @@ import (
 )
 
 // TODO! SWAGGER
+
+// Метод для получения страны (country)
+// @Summary Получение страны
+// @Description Возвращает страну
+// @Tags country
+// @Accept json
+// @Produce json
+// @Param Authorization header string true "Bearer token"
+// @Param country_id path int true "ID страны"
+// @Success 200 {object} Get_CountryById_Response
+// @Router /api/v1/country/{country_id} [get]
 func getCountryById(c *gin.Context, a *app.App) {
 	var reqBody Get_CountryById_Request
 	if err := c.ShouldBindJSON(&reqBody); err != nil {
@@ -24,6 +35,15 @@ func getCountryById(c *gin.Context, a *app.App) {
 	c.JSON(http.StatusOK, GetCountryByIdSuccessResponce(country))
 }
 
+// Метод для получения стран (country)
+// @Summary Получение стран
+// @Description Возвращает страны
+// @Tags country
+// @Accept json
+// @Produce json
+// @Param Authorization header string true "Bearer token"
+// @Success 200 {object} []Get_CountryById_Response
+// @Router /api/v1/country [get]
 func getCountryAll(c *gin.Context, a *app.App) {
 	countries, err := a.Get_All_Country(c)
 	if err != nil {
@@ -34,6 +54,16 @@ func getCountryAll(c *gin.Context, a *app.App) {
 	c.JSON(http.StatusOK, GetAllCountrySuccessResponse(countries))
 }
 
+// Метод для добавления страны (country)
+// @Summary Добавление страну
+// @Description Добавляет страну
+// @Tags country
+// @Accept json
+// @Produce json
+// @Param Authorization header string true "Bearer token"
+// @Param country body Create_Country_Request true "Данные страны"
+// @Success 200 {object} Create_Country_Response
+// @Router /api/v1/country [post]
 func createCountry(c *gin.Context, a *app.App) {
 	var reqBody Create_Country_Request
 	if err := c.ShouldBindJSON(&reqBody); err != nil {
@@ -50,6 +80,16 @@ func createCountry(c *gin.Context, a *app.App) {
 	c.JSON(http.StatusOK, CreateCountryByIdSuccessResponce(resp))
 }
 
+// Метод для редактирования страны (country)
+// @Summary Редактирование страны
+// @Description Редактирует страну
+// @Tags country
+// @Accept json
+// @Produce json
+// @Param Authorization header string true "Bearer token"
+// @Param country body Update_CountryById_Request true "Данные страны"
+// @Success 200 {object} Update_CountryById_Response
+// @Router /api/v1/country [put]
 func updateCountryById(c *gin.Context, a *app.App) {
 	var reqBody Update_CountryById_Request
 	if err := c.ShouldBindJSON(&reqBody); err != nil {
@@ -71,6 +111,16 @@ func updateCountryById(c *gin.Context, a *app.App) {
 	c.JSON(http.StatusOK, UpdateCountryByIdSuccessResponce(resp))
 }
 
+// Метод для удаления страны (country)
+// @Summary Удаление страны
+// @Description Удаляет страну
+// @Tags country
+// @Accept json
+// @Produce json
+// @Param Authorization header string true "Bearer token"
+// @Param country body Delete_CountryById_Request true "ID страны"
+// @Success 200 {object} Delete_CountryById_Response
+// @Router /api/v1/country [delete]
 func deleteCountryById(c *gin.Context, a *app.App) {
 	var reqBody Delete_CountryById_Request
 	if err := c.ShouldBindJSON(&reqBody); err != nil {
