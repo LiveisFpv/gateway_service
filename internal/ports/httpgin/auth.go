@@ -13,6 +13,15 @@ import (
 Func send 401 if incorrect user password or email]
 send 200 and token if it correct
 */
+// Метод для авторизации
+// @Summary Авторизация
+// @Description Авторизует пользователя
+// @Tags auth
+// @Accept json
+// @Produce json
+// @Param auth body AuthRequest true "Данные пользователя"
+// @Success 200 {object} AuthResponse
+// @Router /auth [post]
 func auth(c *gin.Context, a *app.App) {
 	var reqBody AuthRequest
 	if err := c.ShouldBindJSON(&reqBody); err != nil {

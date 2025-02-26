@@ -4,6 +4,7 @@ import (
 	"gateway_service/internal/app"
 	"gateway_service/internal/domain"
 	"net/http"
+	"strconv"
 
 	"github.com/gin-gonic/gin"
 )
@@ -21,15 +22,14 @@ import (
 // @Success 200 {object} Get_CountryById_Response
 // @Router /api/v1/country/{country_id} [get]
 func getCountryById(c *gin.Context, a *app.App) {
-	var reqBody Get_CountryById_Request
-	if err := c.ShouldBindJSON(&reqBody); err != nil {
+	country_id, err := strconv.Atoi(c.Param("country_id"))
+	if err != nil {
 		c.JSON(http.StatusBadRequest, ErrorResponse(err))
-		return
 	}
 
-	country, err := a.Get_CountryById(c, reqBody.Country_id)
+	country, err := a.Get_CountryById(c, country_id)
 	if err != nil {
-		c.JSON(http.StatusInternalServerError, ErrorResponse(err))
+		c.JSON(http.StatusBadRequest, ErrorResponse(err))
 		return
 	}
 	c.JSON(http.StatusOK, GetCountryByIdSuccessResponce(country))
