@@ -112,7 +112,7 @@ func (a *App) Update_CountryById(ctx context.Context, model *domain.Country) (co
 	req := &country_req.Update_CountryById_Request{
 		CountryId: int64(model.Country_id),
 		CountryTitle: model.Country_title,
-		CountryCapital: model.Country_area,
+		CountryCapital: model.Country_capital,
 		CountryArea: model.Country_area,
 	}
 
