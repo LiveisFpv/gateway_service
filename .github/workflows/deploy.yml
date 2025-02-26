@@ -25,7 +25,7 @@ jobs:
           ssh ${{ secrets.SSH_USER }}@${{ secrets.SSH_HOST }} << 'EOF'
             cd ~/gateway_service
             git pull origin main
-            docker-compose down
-            docker-compose build
-            docker-compose up -d
+            docker compose down
+            docker compose build
+            docker compose up -d
           EOF
