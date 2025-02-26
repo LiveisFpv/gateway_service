@@ -2,6 +2,7 @@ package httpgin
 
 import (
 	"gateway_service/internal/app"
+	"gateway_service/internal/domain"
 	"net/http"
 
 	"github.com/gin-gonic/gin"
@@ -55,7 +56,12 @@ func updateCountryById(c *gin.Context, a *app.App){
 		return
 	}
 
-	resp, err := a.Update_CountryById(c, reqBody.Country_id)
+	resp, err := a.Update_CountryById(c, &domain.Country{
+		Country_id: reqBody.Country_id,
+		Country_title: reqBody.Country_title,
+		Country_capital: reqBody.Country_capital,
+		Country_area: reqBody.Country_area,
+	})
 	if err != nil {
 		c.JSON(http.StatusInternalServerError, ErrorResponse(err))
 		return

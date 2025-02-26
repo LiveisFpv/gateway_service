@@ -108,9 +108,12 @@ func (a *App) Get_All_Country(ctx context.Context) (countries []*domain.Country,
 	return countries, nil
 }
 
-func (a *App) Update_CountryById(ctx context.Context, country_id int) (country *domain.Country, err error) {
+func (a *App) Update_CountryById(ctx context.Context, model *domain.Country) (country *domain.Country, err error) {
 	req := &country_req.Update_CountryById_Request{
-		CountryId: int64(country_id),
+		CountryId: int64(model.Country_id),
+		CountryTitle: model.Country_title,
+		CountryCapital: model.Country_area,
+		CountryArea: model.Country_area,
 	}
 
 	resp, err := a.client_country.Update_CountryById(ctx, req)
@@ -119,7 +122,7 @@ func (a *App) Update_CountryById(ctx context.Context, country_id int) (country *
 	}
 
 	return &domain.Country{
-		Country_id:      country_id,
+		Country_id:      model.Country_id,
 		Country_title:   resp.CountryTitle,
 		Country_capital: resp.CountryCapital,
 		Country_area:    resp.CountryArea,
