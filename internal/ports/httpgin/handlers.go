@@ -8,7 +8,8 @@ import (
 	"github.com/gin-gonic/gin"
 )
 
-func getCountryById(c *gin.Context, a *app.App){
+// TODO! SWAGGER
+func getCountryById(c *gin.Context, a *app.App) {
 	var reqBody Get_CountryById_Request
 	if err := c.ShouldBindJSON(&reqBody); err != nil {
 		c.JSON(http.StatusBadRequest, ErrorResponse(err))
@@ -23,7 +24,7 @@ func getCountryById(c *gin.Context, a *app.App){
 	c.JSON(http.StatusOK, GetCountryByIdSuccessResponce(country))
 }
 
-func getCountryAll(c *gin.Context, a *app.App){
+func getCountryAll(c *gin.Context, a *app.App) {
 	countries, err := a.Get_All_Country(c)
 	if err != nil {
 		c.JSON(http.StatusInternalServerError, ErrorResponse(err))
@@ -33,7 +34,7 @@ func getCountryAll(c *gin.Context, a *app.App){
 	c.JSON(http.StatusOK, GetAllCountrySuccessResponse(countries))
 }
 
-func createCountry(c *gin.Context, a *app.App){
+func createCountry(c *gin.Context, a *app.App) {
 	var reqBody Create_Country_Request
 	if err := c.ShouldBindJSON(&reqBody); err != nil {
 		c.JSON(http.StatusBadRequest, ErrorResponse(err))
@@ -49,7 +50,7 @@ func createCountry(c *gin.Context, a *app.App){
 	c.JSON(http.StatusOK, CreateCountryByIdSuccessResponce(resp))
 }
 
-func updateCountryById(c *gin.Context, a *app.App){
+func updateCountryById(c *gin.Context, a *app.App) {
 	var reqBody Update_CountryById_Request
 	if err := c.ShouldBindJSON(&reqBody); err != nil {
 		c.JSON(http.StatusBadRequest, ErrorResponse(err))
@@ -57,10 +58,10 @@ func updateCountryById(c *gin.Context, a *app.App){
 	}
 
 	resp, err := a.Update_CountryById(c, &domain.Country{
-		Country_id: reqBody.Country_id,
-		Country_title: reqBody.Country_title,
+		Country_id:      reqBody.Country_id,
+		Country_title:   reqBody.Country_title,
 		Country_capital: reqBody.Country_capital,
-		Country_area: reqBody.Country_area,
+		Country_area:    reqBody.Country_area,
 	})
 	if err != nil {
 		c.JSON(http.StatusInternalServerError, ErrorResponse(err))
@@ -70,7 +71,7 @@ func updateCountryById(c *gin.Context, a *app.App){
 	c.JSON(http.StatusOK, UpdateCountryByIdSuccessResponce(resp))
 }
 
-func deleteCountryById(c *gin.Context, a *app.App){
+func deleteCountryById(c *gin.Context, a *app.App) {
 	var reqBody Delete_CountryById_Request
 	if err := c.ShouldBindJSON(&reqBody); err != nil {
 		c.JSON(http.StatusBadRequest, ErrorResponse(err))

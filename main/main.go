@@ -13,6 +13,7 @@ import (
 	"github.com/jackc/pgx/v5/pgxpool"
 )
 
+// TODO Swagger
 // HERE ONLY START GATEWAY
 func main() {
 

@@ -8,6 +8,7 @@ import (
 	"github.com/gin-gonic/gin"
 )
 
+//TODO SWAGGER
 /*
 Func send 401 if incorrect user password or email]
 send 200 and token if it correct

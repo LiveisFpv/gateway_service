@@ -19,7 +19,6 @@ func LoggerSetup(debug bool) *logrus.Logger {
 	switch debug {
 	case true:
 		logger.SetLevel(logrus.DebugLevel)
-		break
 	default:
 		logger.SetLevel(logrus.InfoLevel)
 	}

@@ -17,6 +17,7 @@ type Server struct {
 func NewHTTPServer(port string, a *app.App) Server {
 	//Use GIN how release
 	gin.SetMode(gin.ReleaseMode)
+	//TODO logger
 	//Connect to server with default logger
 	s := Server{port: port, app: gin.Default()}
 	//Enable all CORS policity if start on one machine
@@ -33,6 +34,7 @@ func NewHTTPServer(port string, a *app.App) Server {
 	api := open.Group("api/v1")
 	//Use Middleware to validate token
 	api.Use(crypt.AuthMiddleware())
+	//TODO logger middleware?
 	ProtectedRouter(api, a)
 	return s
 }
