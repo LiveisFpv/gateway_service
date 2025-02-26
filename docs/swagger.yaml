@@ -1,5 +1,17 @@
 basePath: /
 definitions:
+  httpgin.AuthRequest:
+    properties:
+      email:
+        type: string
+      password:
+        type: string
+    type: object
+  httpgin.AuthResponse:
+    properties:
+      token:
+        type: string
+    type: object
   httpgin.Create_Country_Request:
     properties:
       country_area:
@@ -33,6 +45,13 @@ definitions:
       country_id:
         type: integer
       country_title:
+        type: string
+    type: object
+  httpgin.RegisterRequest:
+    properties:
+      email:
+        type: string
+      password:
         type: string
     type: object
   httpgin.Update_CountryById_Request:
@@ -142,4 +161,48 @@ paths:
       summary: Редактирование страны
       tags:
       - country
+  /auth:
+    post:
+      consumes:
+      - application/json
+      description: Авторизует пользователя
+      parameters:
+      - description: Данные пользователя
+        in: body
+        name: auth
+        required: true
+        schema:
+          $ref: '#/definitions/httpgin.AuthRequest'
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            $ref: '#/definitions/httpgin.AuthResponse'
+      summary: Авторизация
+      tags:
+      - auth
+  /register:
+    post:
+      consumes:
+      - application/json
+      description: Регистрирует пользователя
+      parameters:
+      - description: Данные пользователя
+        in: body
+        name: register
+        required: true
+        schema:
+          $ref: '#/definitions/httpgin.RegisterRequest'
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            type: string
+      summary: Регистрирует пользователя
+      tags:
+      - auth
 swagger: "2.0"

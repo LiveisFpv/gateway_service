@@ -13,6 +13,15 @@ import (
 Func send 401 if incorrect user password or email]
 send 200 and token if it correct
 */
+// Метод для авторизации
+// @Summary Авторизация
+// @Description Авторизует пользователя
+// @Tags auth
+// @Accept json
+// @Produce json
+// @Param auth body AuthRequest true "Данные пользователя"
+// @Success 200 {object} AuthResponse
+// @Router /auth [post]
 func auth(c *gin.Context, a *app.App) {
 	var reqBody AuthRequest
 	if err := c.ShouldBindJSON(&reqBody); err != nil {
@@ -35,6 +44,15 @@ func auth(c *gin.Context, a *app.App) {
 Func send 200 if user registered
 send 500 if is problem on Auth-service
 */
+// Метод для регистрации пользователя
+// @Summary Регистрирует пользователя
+// @Description Регистрирует пользователя
+// @Tags auth
+// @Accept json
+// @Produce json
+// @Param register body RegisterRequest true "Данные пользователя"
+// @Success 200 {string} ok 
+// @Router /register [post]
 func register(c *gin.Context, a *app.App) {
 	var reqBody RegisterRequest
 	if err := c.ShouldBindJSON(&reqBody); err != nil {
