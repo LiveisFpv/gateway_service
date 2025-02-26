@@ -7,6 +7,11 @@ import (
 
 	"github.com/gin-contrib/cors"
 	"github.com/gin-gonic/gin"
+
+	_ "gateway_service/docs"
+
+	swaggerFiles "github.com/swaggo/files"
+	ginSwagger "github.com/swaggo/gin-swagger"
 )
 
 type Server struct {
@@ -36,6 +41,7 @@ func NewHTTPServer(port string, a *app.App) Server {
 	api.Use(crypt.AuthMiddleware())
 	//TODO logger middleware?
 	ProtectedRouter(api, a)
+	s.app.GET("/swagger/*any", ginSwagger.WrapHandler(swaggerFiles.Handler)) // ! replace
 	return s
 }
 

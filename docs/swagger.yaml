@@ -1,0 +1,145 @@
+basePath: /
+definitions:
+  httpgin.Create_Country_Request:
+    properties:
+      country_area:
+        type: string
+      country_capital:
+        type: string
+      country_title:
+        type: string
+    type: object
+  httpgin.Create_Country_Response:
+    properties:
+      country_id:
+        type: integer
+    type: object
+  httpgin.Delete_CountryById_Request:
+    properties:
+      country_id:
+        type: integer
+    type: object
+  httpgin.Delete_CountryById_Response:
+    properties:
+      country_title:
+        type: string
+    type: object
+  httpgin.Get_CountryById_Response:
+    properties:
+      country_area:
+        type: string
+      country_capital:
+        type: string
+      country_id:
+        type: integer
+      country_title:
+        type: string
+    type: object
+  httpgin.Update_CountryById_Request:
+    properties:
+      country_area:
+        type: string
+      country_capital:
+        type: string
+      country_id:
+        type: integer
+      country_title:
+        type: string
+    type: object
+  httpgin.Update_CountryById_Response:
+    properties:
+      country_area:
+        type: string
+      country_capital:
+        type: string
+      country_title:
+        type: string
+    type: object
+host: localhost:18000
+info:
+  contact: {}
+  description: API с документацией Swagger
+  title: country API
+  version: "2.0"
+paths:
+  /api/v1/country:
+    delete:
+      consumes:
+      - application/json
+      description: Удаляет страну
+      parameters:
+      - description: ID страны
+        in: body
+        name: country
+        required: true
+        schema:
+          $ref: '#/definitions/httpgin.Delete_CountryById_Request'
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            $ref: '#/definitions/httpgin.Delete_CountryById_Response'
+      summary: Удаление страны
+      tags:
+      - country
+    get:
+      consumes:
+      - application/json
+      description: Возвращает страны
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            items:
+              $ref: '#/definitions/httpgin.Get_CountryById_Response'
+            type: array
+      summary: Получение стран
+      tags:
+      - country
+    post:
+      consumes:
+      - application/json
+      description: Добавляет страну
+      parameters:
+      - description: Данные страны
+        in: body
+        name: country
+        required: true
+        schema:
+          $ref: '#/definitions/httpgin.Create_Country_Request'
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            $ref: '#/definitions/httpgin.Create_Country_Response'
+      summary: Добавление страну
+      tags:
+      - country
+    put:
+      consumes:
+      - application/json
+      description: Редактирует страну
+      parameters:
+      - description: Данные страны
+        in: body
+        name: country
+        required: true
+        schema:
+          $ref: '#/definitions/httpgin.Update_CountryById_Request'
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            $ref: '#/definitions/httpgin.Update_CountryById_Response'
+      summary: Редактирование страны
+      tags:
+      - country
+swagger: "2.0"
