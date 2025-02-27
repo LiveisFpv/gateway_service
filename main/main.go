@@ -13,15 +13,13 @@ import (
 	"github.com/jackc/pgx/v5/pgxpool"
 )
 
-// TODO Swagger
-// HERE ONLY START GATEWAY
 // @title country API
 // @version 2.0
 // @description API с документацией Swagger
 // @host localhost:18000
 // @BasePath /
 func main() {
-
+	// HERE ONLY START GATEWAY
 	//Create logger
 	logger := config.LoggerSetup(true)
 

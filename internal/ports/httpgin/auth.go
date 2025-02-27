@@ -8,7 +8,6 @@ import (
 	"github.com/gin-gonic/gin"
 )
 
-//TODO SWAGGER
 /*
 Func send 401 if incorrect user password or email]
 send 200 and token if it correct
@@ -21,6 +20,8 @@ send 200 and token if it correct
 // @Produce json
 // @Param auth body AuthRequest true "Данные пользователя"
 // @Success 200 {object} AuthResponse
+// @Failure 401 {object}  Error_Response
+// @Failure 500  {object}  Error_Response
 // @Router /auth [post]
 func auth(c *gin.Context, a *app.App) {
 	var reqBody AuthRequest
@@ -52,6 +53,7 @@ send 500 if is problem on Auth-service
 // @Produce json
 // @Param register body RegisterRequest true "Данные пользователя"
 // @Success 200 {} ok
+// @Failure 500  {object}  Error_Response
 // @Router /register [post]
 func register(c *gin.Context, a *app.App) {
 	var reqBody RegisterRequest

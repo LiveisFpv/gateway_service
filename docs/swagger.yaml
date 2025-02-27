@@ -36,6 +36,12 @@ definitions:
       country_title:
         type: string
     type: object
+  httpgin.Error_Response:
+    properties:
+      data: {}
+      error:
+        type: string
+    type: object
   httpgin.Get_CountryById_Response:
     properties:
       country_area:
@@ -105,6 +111,18 @@ paths:
           description: OK
           schema:
             $ref: '#/definitions/httpgin.Delete_CountryById_Response'
+        "400":
+          description: Bad Request
+          schema:
+            $ref: '#/definitions/httpgin.Error_Response'
+        "401":
+          description: Unauthorized
+          schema:
+            $ref: '#/definitions/httpgin.Error_Response'
+        "500":
+          description: Internal Server Error
+          schema:
+            $ref: '#/definitions/httpgin.Error_Response'
       summary: Удаление страны
       tags:
       - country
@@ -127,6 +145,14 @@ paths:
             items:
               $ref: '#/definitions/httpgin.Get_CountryById_Response'
             type: array
+        "401":
+          description: Unauthorized
+          schema:
+            $ref: '#/definitions/httpgin.Error_Response'
+        "500":
+          description: Internal Server Error
+          schema:
+            $ref: '#/definitions/httpgin.Error_Response'
       summary: Получение стран
       tags:
       - country
@@ -153,6 +179,18 @@ paths:
           description: OK
           schema:
             $ref: '#/definitions/httpgin.Create_Country_Response'
+        "400":
+          description: Bad Request
+          schema:
+            $ref: '#/definitions/httpgin.Error_Response'
+        "401":
+          description: Unauthorized
+          schema:
+            $ref: '#/definitions/httpgin.Error_Response'
+        "500":
+          description: Internal Server Error
+          schema:
+            $ref: '#/definitions/httpgin.Error_Response'
       summary: Добавление страну
       tags:
       - country
@@ -179,6 +217,18 @@ paths:
           description: OK
           schema:
             $ref: '#/definitions/httpgin.Update_CountryById_Response'
+        "400":
+          description: Bad Request
+          schema:
+            $ref: '#/definitions/httpgin.Error_Response'
+        "401":
+          description: Unauthorized
+          schema:
+            $ref: '#/definitions/httpgin.Error_Response'
+        "500":
+          description: Internal Server Error
+          schema:
+            $ref: '#/definitions/httpgin.Error_Response'
       summary: Редактирование страны
       tags:
       - country
@@ -205,6 +255,18 @@ paths:
           description: OK
           schema:
             $ref: '#/definitions/httpgin.Get_CountryById_Response'
+        "400":
+          description: Bad Request
+          schema:
+            $ref: '#/definitions/httpgin.Error_Response'
+        "401":
+          description: Unauthorized
+          schema:
+            $ref: '#/definitions/httpgin.Error_Response'
+        "500":
+          description: Internal Server Error
+          schema:
+            $ref: '#/definitions/httpgin.Error_Response'
       summary: Получение страны
       tags:
       - country
@@ -227,6 +289,14 @@ paths:
           description: OK
           schema:
             $ref: '#/definitions/httpgin.AuthResponse'
+        "401":
+          description: Unauthorized
+          schema:
+            $ref: '#/definitions/httpgin.Error_Response'
+        "500":
+          description: Internal Server Error
+          schema:
+            $ref: '#/definitions/httpgin.Error_Response'
       summary: Авторизация
       tags:
       - auth
@@ -249,6 +319,10 @@ paths:
           description: OK
           schema:
             type: ""
+        "500":
+          description: Internal Server Error
+          schema:
+            $ref: '#/definitions/httpgin.Error_Response'
       summary: Регистрирует пользователя
       tags:
       - auth

@@ -46,6 +46,18 @@ const docTemplate = `{
                                 "$ref": "#/definitions/httpgin.Get_CountryById_Response"
                             }
                         }
+                    },
+                    "401": {
+                        "description": "Unauthorized",
+                        "schema": {
+                            "$ref": "#/definitions/httpgin.Error_Response"
+                        }
+                    },
+                    "500": {
+                        "description": "Internal Server Error",
+                        "schema": {
+                            "$ref": "#/definitions/httpgin.Error_Response"
+                        }
                     }
                 }
             },
@@ -84,6 +96,24 @@ const docTemplate = `{
                         "description": "OK",
                         "schema": {
                             "$ref": "#/definitions/httpgin.Update_CountryById_Response"
+                        }
+                    },
+                    "400": {
+                        "description": "Bad Request",
+                        "schema": {
+                            "$ref": "#/definitions/httpgin.Error_Response"
+                        }
+                    },
+                    "401": {
+                        "description": "Unauthorized",
+                        "schema": {
+                            "$ref": "#/definitions/httpgin.Error_Response"
+                        }
+                    },
+                    "500": {
+                        "description": "Internal Server Error",
+                        "schema": {
+                            "$ref": "#/definitions/httpgin.Error_Response"
                         }
                     }
                 }
@@ -124,6 +154,24 @@ const docTemplate = `{
                         "schema": {
                             "$ref": "#/definitions/httpgin.Create_Country_Response"
                         }
+                    },
+                    "400": {
+                        "description": "Bad Request",
+                        "schema": {
+                            "$ref": "#/definitions/httpgin.Error_Response"
+                        }
+                    },
+                    "401": {
+                        "description": "Unauthorized",
+                        "schema": {
+                            "$ref": "#/definitions/httpgin.Error_Response"
+                        }
+                    },
+                    "500": {
+                        "description": "Internal Server Error",
+                        "schema": {
+                            "$ref": "#/definitions/httpgin.Error_Response"
+                        }
                     }
                 }
             },
@@ -162,6 +210,24 @@ const docTemplate = `{
                         "description": "OK",
                         "schema": {
                             "$ref": "#/definitions/httpgin.Delete_CountryById_Response"
+                        }
+                    },
+                    "400": {
+                        "description": "Bad Request",
+                        "schema": {
+                            "$ref": "#/definitions/httpgin.Error_Response"
+                        }
+                    },
+                    "401": {
+                        "description": "Unauthorized",
+                        "schema": {
+                            "$ref": "#/definitions/httpgin.Error_Response"
+                        }
+                    },
+                    "500": {
+                        "description": "Internal Server Error",
+                        "schema": {
+                            "$ref": "#/definitions/httpgin.Error_Response"
                         }
                     }
                 }
@@ -202,6 +268,24 @@ const docTemplate = `{
                         "schema": {
                             "$ref": "#/definitions/httpgin.Get_CountryById_Response"
                         }
+                    },
+                    "400": {
+                        "description": "Bad Request",
+                        "schema": {
+                            "$ref": "#/definitions/httpgin.Error_Response"
+                        }
+                    },
+                    "401": {
+                        "description": "Unauthorized",
+                        "schema": {
+                            "$ref": "#/definitions/httpgin.Error_Response"
+                        }
+                    },
+                    "500": {
+                        "description": "Internal Server Error",
+                        "schema": {
+                            "$ref": "#/definitions/httpgin.Error_Response"
+                        }
                     }
                 }
             }
@@ -236,6 +320,18 @@ const docTemplate = `{
                         "schema": {
                             "$ref": "#/definitions/httpgin.AuthResponse"
                         }
+                    },
+                    "401": {
+                        "description": "Unauthorized",
+                        "schema": {
+                            "$ref": "#/definitions/httpgin.Error_Response"
+                        }
+                    },
+                    "500": {
+                        "description": "Internal Server Error",
+                        "schema": {
+                            "$ref": "#/definitions/httpgin.Error_Response"
+                        }
                     }
                 }
             }
@@ -269,6 +365,12 @@ const docTemplate = `{
                         "description": "OK",
                         "schema": {
                             "type": ""
+                        }
+                    },
+                    "500": {
+                        "description": "Internal Server Error",
+                        "schema": {
+                            "$ref": "#/definitions/httpgin.Error_Response"
                         }
                     }
                 }
@@ -329,6 +431,15 @@ const docTemplate = `{
             "type": "object",
             "properties": {
                 "country_title": {
+                    "type": "string"
+                }
+            }
+        },
+        "httpgin.Error_Response": {
+            "type": "object",
+            "properties": {
+                "data": {},
+                "error": {
                     "type": "string"
                 }
             }

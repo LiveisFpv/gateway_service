@@ -65,6 +65,11 @@ type Delete_CountryById_Response struct {
 // Interface for all responses
 type ResponseData interface{}
 
+type Error_Response struct {
+	Data  *interface{}
+	Error string
+}
+
 func ErrorResponse(err error) *gin.H {
 	return &gin.H{
 		"data":  nil,
