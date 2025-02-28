@@ -1,8 +1,8 @@
 package country
 
 import (
-	"context"
 	"fmt"
+	"gateway_service/internal/ports/grpc/interseptors"
 	"time"
 
 	"github.com/LiveisFpv/country_v1/gen/go/country"
@@ -35,13 +35,16 @@ func New(
 
 	//Logging options for interseptor grpclog
 	logOpts := []grpclog.Option{
-		grpclog.WithLogOnEvents(grpclog.PayloadReceived, grpclog.PayloadSent),
+		grpclog.WithLogOnEvents(
+			grpclog.PayloadReceived,
+			grpclog.PayloadSent,
+		),
 	}
 	// TODO check logger, logs NF
 	conn, err := grpc.NewClient(address,
 		grpc.WithTransportCredentials(insecure.NewCredentials()),
 		grpc.WithChainUnaryInterceptor(
-			grpclog.UnaryClientInterceptor(InterceptorLogger(log), logOpts...),
+			grpclog.UnaryClientInterceptor(interseptors.InterceptorLogger(log), logOpts...),
 			grpcretry.UnaryClientInterceptor(retryOpts...),
 		))
 	if err != nil {
@@ -52,10 +55,4 @@ func New(
 	return &Client{
 		api: grpcClient,
 	}, nil
-}
-
-func InterceptorLogger(l *logrus.Logger) grpclog.Logger {
-	return grpclog.LoggerFunc(func(ctx context.Context, lvl grpclog.Level, msg string, fields ...any) {
-		l.Log(logrus.Level(lvl), msg, fields)
-	})
 }

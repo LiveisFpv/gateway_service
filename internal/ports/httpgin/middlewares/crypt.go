@@ -1,4 +1,4 @@
-package crypt
+package middlewares
 
 import (
 	"net/http"

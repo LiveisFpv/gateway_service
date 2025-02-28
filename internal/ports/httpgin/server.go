@@ -2,7 +2,8 @@ package httpgin
 
 import (
 	"gateway_service/internal/app"
-	"gateway_service/internal/crypt"
+	"gateway_service/internal/config"
+	"gateway_service/internal/ports/httpgin/middlewares"
 	"net/http"
 
 	"github.com/gin-contrib/cors"
@@ -19,12 +20,20 @@ type Server struct {
 	app  *gin.Engine
 }
 
-func NewHTTPServer(port string, a *app.App) Server {
+func NewHTTPServer(gincfg *config.GinConfig, a *app.App) Server {
 	//Use GIN how release
-	gin.SetMode(gin.ReleaseMode)
+	gin.SetMode(gin.DebugMode)
 	//TODO logger
+	//Init clear gin server without logger and recovery
+	r := gin.New()
+	//Use custom logger
+	r.Use(
+		middlewares.RequestLogger(gincfg.Logger),
+		middlewares.ResponseLogger(gincfg.Logger),
+		gin.Recovery(),
+	)
 	//Connect to server with default logger
-	s := Server{port: port, app: gin.Default()}
+	s := Server{port: gincfg.Port, app: r}
 	//Enable all CORS policity if start on one machine
 	s.app.Use(cors.New(cors.Config{
 		AllowOrigins:     []string{"*"},                                       // Разрешаем запросы с любых доменов
@@ -38,7 +47,7 @@ func NewHTTPServer(port string, a *app.App) Server {
 	//Way to protected route
 	api := open.Group("api/v1")
 	//Use Middleware to validate token
-	api.Use(crypt.AuthMiddleware())
+	api.Use(middlewares.AuthMiddleware())
 	//TODO logger middleware?
 	ProtectedRouter(api, a)
 	s.app.GET("/swagger/*any", ginSwagger.WrapHandler(swaggerFiles.Handler)) // ! replace
