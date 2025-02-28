@@ -2,33 +2,42 @@ package tracer
 
 import (
 	"context"
+	"log"
 
-	"github.com/sirupsen/logrus"
 	"go.opentelemetry.io/otel"
-	"go.opentelemetry.io/otel/exporters/otlp/otlptrace/otlptracehttp"
-	"go.opentelemetry.io/otel/propagation"
+	"go.opentelemetry.io/otel/exporters/otlp/otlptrace/otlptracegrpc"
 	"go.opentelemetry.io/otel/sdk/resource"
 	"go.opentelemetry.io/otel/sdk/trace"
-	semconv "go.opentelemetry.io/otel/semconv/v1.4.0"
+	semconv "go.opentelemetry.io/otel/semconv/v1.17.0"
+	"google.golang.org/grpc/credentials/insecure"
 )
 
-// Init OpenTelemetry
-func InitTracer(log *logrus.Logger) func() {
-	exp, err := otlptracehttp.New(
-		context.Background(),
-		otlptracehttp.WithEndpoint("http://localhost:4318"),
+// InitTracer инициализирует OpenTelemetry с OTLP-экспортером
+func InitTracer(serviceName string) (*trace.TracerProvider, error) {
+	ctx := context.Background()
+
+	// Создаём OTLP-экспортер через gRPC
+	exporter, err := otlptracegrpc.New(ctx,
+		otlptracegrpc.WithEndpoint("otel-collector:4317"),
+		otlptracegrpc.WithTLSCredentials(insecure.NewCredentials()),
 	)
 	if err != nil {
-		log.Fatal(err)
+		log.Fatalf("Failed to create OTLP exporter: %v", err)
+		return nil, err
 	}
-	tp := trace.NewTracerProvider(
-		trace.WithBatcher(exp),
-		trace.WithResource(resource.NewWithAttributes(
-			semconv.SchemaURL,
-			semconv.ServiceNameKey.String("gateway-service"),
-		)),
+
+	// Создаём ресурс с метаданными сервиса
+	res := resource.NewWithAttributes(
+		semconv.SchemaURL,
+		semconv.ServiceNameKey.String(serviceName),
 	)
+
+	// Создаём провайдера трассировки
+	tp := trace.NewTracerProvider(
+		trace.WithBatcher(exporter),
+		trace.WithResource(res),
+	)
+
 	otel.SetTracerProvider(tp)
-	otel.SetTextMapPropagator(propagation.TraceContext{})
-	return func() { _ = tp.Shutdown(context.Background()) }
+	return tp, nil
 }

@@ -3,7 +3,6 @@ package httpgin
 import (
 	"gateway_service/internal/app"
 	"gateway_service/internal/config"
-	"gateway_service/internal/lib/tracer"
 	"gateway_service/internal/ports/httpgin/middlewares"
 	"net/http"
 
@@ -25,13 +24,11 @@ type Server struct {
 func NewHTTPServer(gincfg *config.GinConfig, a *app.App) Server {
 	//Use GIN how release
 	gin.SetMode(gin.DebugMode)
-	shutdown := tracer.InitTracer(gincfg.Logger)
-	defer shutdown()
 	//Init clear gin server without logger and recovery
 	r := gin.New()
 	//Use custom logger
 	r.Use(
-		otelgin.Middleware("gateway-service"),
+		otelgin.Middleware("gateway_service"),
 		middlewares.RequestLogger(gincfg.Logger),
 		middlewares.ResponseLogger(gincfg.Logger),
 		gin.Recovery(),
