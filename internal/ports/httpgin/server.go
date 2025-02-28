@@ -3,11 +3,13 @@ package httpgin
 import (
 	"gateway_service/internal/app"
 	"gateway_service/internal/config"
+	"gateway_service/internal/lib/tracer"
 	"gateway_service/internal/ports/httpgin/middlewares"
 	"net/http"
 
 	"github.com/gin-contrib/cors"
 	"github.com/gin-gonic/gin"
+	"go.opentelemetry.io/contrib/instrumentation/github.com/gin-gonic/gin/otelgin"
 
 	_ "gateway_service/docs"
 
@@ -23,11 +25,13 @@ type Server struct {
 func NewHTTPServer(gincfg *config.GinConfig, a *app.App) Server {
 	//Use GIN how release
 	gin.SetMode(gin.DebugMode)
-	//TODO logger
+	shutdown := tracer.InitTracer(gincfg.Logger)
+	defer shutdown()
 	//Init clear gin server without logger and recovery
 	r := gin.New()
 	//Use custom logger
 	r.Use(
+		otelgin.Middleware("gateway-service"),
 		middlewares.RequestLogger(gincfg.Logger),
 		middlewares.ResponseLogger(gincfg.Logger),
 		gin.Recovery(),
