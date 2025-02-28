@@ -52,7 +52,7 @@ func main() {
 	usecase := app.NewApp(repo, client_auth, client_country)
 
 	//Start service
-	server := httpgin.NewHTTPServer(gincfg.Port, usecase)
+	server := httpgin.NewHTTPServer(gincfg, usecase)
 	logger.Info("Start Gateway Service")
 	err = server.Listen()
 	if err != nil {
