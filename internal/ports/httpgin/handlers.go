@@ -56,6 +56,20 @@ func getCountryAll(c *gin.Context, a *app.App) {
 
 	c.JSON(http.StatusOK, GetAllCountrySuccessResponse(countries))
 }
+// Метод для получения стран (country)
+// @Summary Получение стран
+// @Description Возвращает страны
+// @Tags country
+// @Accept json
+// @Produce json
+// @Param Authorization header string true "Bearer token"
+// @Success 200 {object} []Get_CountryById_Response
+// @Failure 401 {object}  Error_Response
+// @Failure 500  {object}  Error_Response
+// @Router /country [get]
+func getCountryAll2(c *gin.Context, a *app.App) {}
+
+
 
 // Метод для добавления страны (country)
 // @Summary Добавление страну
