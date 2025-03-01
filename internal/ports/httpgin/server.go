@@ -52,7 +52,7 @@ func NewHTTPServer(gincfg *config.GinConfig, a *app.App) Server {
 	//For test
 	apiv2 := open.Group("api/v2")
 	apiv2.Use(middlewares.AuthMiddleware())
-	ProtectedRouter(apiv2, a)
+	TestRounter(apiv2, a)
 
 	//TODO logger middleware?
 	ProtectedRouter(api, a)
