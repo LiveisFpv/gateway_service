@@ -121,7 +121,7 @@ definitions:
       country_title:
         type: string
     type: object
-host: http://hackatonsite.jumpingcrab.com:18000
+host: hackatonsite.jumpingcrab.com:18000
 info:
   contact: {}
   description: API с документацией Swagger
