@@ -291,7 +291,7 @@ const docTemplate = `{
             }
         },
         "/api/v2/country": {
-            "get": {
+            "post": {
                 "description": "Возвращает страны",
                 "consumes": [
                     "application/json"

@@ -18,7 +18,7 @@ import (
 // @Success 200 {object} Get_All_Country_Response
 // @Failure 401 {object}  Error_Response
 // @Failure 500  {object}  Error_Response
-// @Router /api/v2/country [get]
+// @Router /api/v2/country [post]
 func new_getCountryAll(c *gin.Context, a *app.App) {
 	countries, err := a.Get_All_Country(c)
 	if err != nil {

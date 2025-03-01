@@ -312,7 +312,7 @@ paths:
       tags:
       - country
   /api/v2/country:
-    get:
+    post:
       consumes:
       - application/json
       description: Возвращает страны
