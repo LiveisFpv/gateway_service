@@ -16,7 +16,7 @@ import (
 // @title country API
 // @version 2.0
 // @description API с документацией Swagger
-// @host localhost:18000
+// @host http://hackatonsite.jumpingcrab.com:18000/
 // @BasePath /
 func main() {
 	// HERE ONLY START GATEWAY
