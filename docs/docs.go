@@ -290,6 +290,59 @@ const docTemplate = `{
                 }
             }
         },
+        "/api/v2/country": {
+            "get": {
+                "description": "Возвращает страны",
+                "consumes": [
+                    "application/json"
+                ],
+                "produces": [
+                    "application/json"
+                ],
+                "tags": [
+                    "country"
+                ],
+                "summary": "Получение стран",
+                "parameters": [
+                    {
+                        "type": "string",
+                        "description": "Bearer token",
+                        "name": "Authorization",
+                        "in": "header",
+                        "required": true
+                    },
+                    {
+                        "description": "Filter,Pagination,Sort",
+                        "name": "data",
+                        "in": "body",
+                        "required": true,
+                        "schema": {
+                            "$ref": "#/definitions/httpgin.Get_All_Country_Request"
+                        }
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "OK",
+                        "schema": {
+                            "$ref": "#/definitions/httpgin.Get_All_Country_Response"
+                        }
+                    },
+                    "401": {
+                        "description": "Unauthorized",
+                        "schema": {
+                            "$ref": "#/definitions/httpgin.Error_Response"
+                        }
+                    },
+                    "500": {
+                        "description": "Internal Server Error",
+                        "schema": {
+                            "$ref": "#/definitions/httpgin.Error_Response"
+                        }
+                    }
+                }
+            }
+        },
         "/auth": {
             "post": {
                 "description": "Авторизует пользователя",
@@ -444,6 +497,45 @@ const docTemplate = `{
                 }
             }
         },
+        "httpgin.Filter": {
+            "type": "object",
+            "properties": {
+                "text": {
+                    "type": "string"
+                }
+            }
+        },
+        "httpgin.Get_All_Country_Request": {
+            "type": "object",
+            "properties": {
+                "filter": {
+                    "$ref": "#/definitions/httpgin.Filter"
+                },
+                "pagination": {
+                    "$ref": "#/definitions/httpgin.Pagination"
+                },
+                "sort": {
+                    "$ref": "#/definitions/httpgin.Sort"
+                }
+            }
+        },
+        "httpgin.Get_All_Country_Response": {
+            "type": "object",
+            "properties": {
+                "data": {
+                    "type": "array",
+                    "items": {
+                        "$ref": "#/definitions/httpgin.Get_CountryById_Response"
+                    }
+                },
+                "error": {
+                    "type": "string"
+                },
+                "pagination": {
+                    "$ref": "#/definitions/httpgin.Pagination"
+                }
+            }
+        },
         "httpgin.Get_CountryById_Response": {
             "type": "object",
             "properties": {
@@ -461,6 +553,20 @@ const docTemplate = `{
                 }
             }
         },
+        "httpgin.Pagination": {
+            "type": "object",
+            "properties": {
+                "current": {
+                    "type": "integer"
+                },
+                "limit": {
+                    "type": "integer"
+                },
+                "total": {
+                    "type": "integer"
+                }
+            }
+        },
         "httpgin.RegisterRequest": {
             "type": "object",
             "properties": {
@@ -468,6 +574,17 @@ const docTemplate = `{
                     "type": "string"
                 },
                 "password": {
+                    "type": "string"
+                }
+            }
+        },
+        "httpgin.Sort": {
+            "type": "object",
+            "properties": {
+                "by": {
+                    "type": "string"
+                },
+                "direction": {
                     "type": "string"
                 }
             }

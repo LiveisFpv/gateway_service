@@ -45,11 +45,18 @@ func NewHTTPServer(gincfg *config.GinConfig, a *app.App) Server {
 	open := s.app.Group("/")
 	OpenRouter(open, a)
 	//Way to protected route
+
 	api := open.Group("api/v1")
 	//Use Middleware to validate token
 	api.Use(middlewares.AuthMiddleware())
+	//For test
+	apiv2 := open.Group("api/v2")
+	apiv2.Use(middlewares.AuthMiddleware())
+	ProtectedRouter(apiv2, a)
+
 	//TODO logger middleware?
 	ProtectedRouter(api, a)
+
 	s.app.GET("/swagger/*any", ginSwagger.WrapHandler(swaggerFiles.Handler)) // ! replace
 	return s
 }

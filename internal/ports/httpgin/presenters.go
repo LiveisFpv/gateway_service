@@ -30,6 +30,31 @@ type Get_CountryById_Response struct {
 	Country_capital string
 	Country_area    string
 }
+type Pagination struct {
+	Current int
+	Total   int
+	Limit   int
+}
+
+type Filter struct {
+	Text string
+}
+
+type Sort struct {
+	Direction string
+	By        string
+}
+type Get_All_Country_Request struct {
+	Filter     Filter
+	Pagination Pagination
+	Sort       Sort
+}
+
+type Get_All_Country_Response struct {
+	Data       *[]Get_CountryById_Response
+	Pagination *Pagination
+	Error      *string
+}
 
 type Create_Country_Request struct {
 	Country_title   string
@@ -77,6 +102,9 @@ func ErrorResponse(err error) *gin.H {
 	}
 }
 
+// ! TODO Translte all response to form:
+// data: Response
+// error: string
 func SuccessResponse(data ResponseData) *gin.H {
 	return &gin.H{
 		"data":  data,
