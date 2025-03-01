@@ -381,12 +381,6 @@ paths:
       consumes:
       - application/json
       description: Возвращает страны
-      parameters:
-      - description: Bearer token
-        in: header
-        name: Authorization
-        required: true
-        type: string
       produces:
       - application/json
       responses:

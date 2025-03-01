@@ -402,15 +402,6 @@ const docTemplate = `{
                     "country"
                 ],
                 "summary": "Получение стран",
-                "parameters": [
-                    {
-                        "type": "string",
-                        "description": "Bearer token",
-                        "name": "Authorization",
-                        "in": "header",
-                        "required": true
-                    }
-                ],
                 "responses": {
                     "200": {
                         "description": "OK",

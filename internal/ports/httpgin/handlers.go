@@ -62,7 +62,6 @@ func getCountryAll(c *gin.Context, a *app.App) {
 // @Tags country
 // @Accept json
 // @Produce json
-// @Param Authorization header string true "Bearer token"
 // @Success 200 {object} []Get_CountryById_Response
 // @Failure 401 {object}  Error_Response
 // @Failure 500  {object}  Error_Response
