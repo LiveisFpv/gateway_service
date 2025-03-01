@@ -63,7 +63,6 @@ func getCountryAll(c *gin.Context, a *app.App) {
 // @Accept json
 // @Produce json
 // @Success 200 {object} []Get_CountryById_Response
-// @Failure 401 {object}  Error_Response
 // @Failure 500  {object}  Error_Response
 // @Router /country [get]
 func getCountryAll2(c *gin.Context, a *app.App) {}
