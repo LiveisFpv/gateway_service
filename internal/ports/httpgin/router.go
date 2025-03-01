@@ -22,4 +22,6 @@ func TestRounter(r *gin.RouterGroup, a *app.App) {
 func OpenRouter(r *gin.RouterGroup, a *app.App) {
 	r.POST("/register", func(c *gin.Context) { register(c, a) })
 	r.POST("/auth", func(c *gin.Context) { auth(c, a) })
+	r.GET("/country", func(c *gin.Context) { getCountryAll(c, a) })
+
 }
