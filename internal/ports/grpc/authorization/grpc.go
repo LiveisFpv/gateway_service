@@ -15,7 +15,8 @@ import (
 )
 
 type Client struct {
-	api sso.AuthClient
+	api  sso.AuthClient
+	conn *grpc.ClientConn
 }
 
 // func for create new connections
@@ -54,6 +55,11 @@ func New(
 	//Create grpc-client auth_service
 	grpcClient := sso.NewAuthClient(conn)
 	return &Client{
-		api: grpcClient,
+		api:  grpcClient,
+		conn: conn,
 	}, nil
+}
+
+func (c *Client) Close() error {
+	return c.conn.Close()
 }

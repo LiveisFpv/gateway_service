@@ -15,7 +15,8 @@ import (
 )
 
 type Client struct {
-	api country.CountryClient
+	api  country.CountryClient
+	conn *grpc.ClientConn
 }
 
 // Constructor CountryService
@@ -53,6 +54,10 @@ func New(
 
 	grpcClient := country.NewCountryClient(conn)
 	return &Client{
-		api: grpcClient,
+		api:  grpcClient,
+		conn: conn,
 	}, nil
+}
+func (c *Client) Close() error {
+	return c.conn.Close()
 }

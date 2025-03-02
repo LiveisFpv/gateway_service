@@ -1,6 +1,7 @@
 package httpgin
 
 import (
+	"context"
 	"gateway_service/internal/app"
 	"gateway_service/internal/config"
 	"gateway_service/internal/ports/httpgin/middlewares"
@@ -16,11 +17,12 @@ import (
 )
 
 type Server struct {
-	port string
-	app  *gin.Engine
+	port       string
+	app        *gin.Engine
+	httpServer *http.Server
 }
 
-func NewHTTPServer(gincfg *config.GinConfig, a *app.App) Server {
+func NewHTTPServer(gincfg *config.GinConfig, a *app.App) *Server {
 	//Use GIN how release
 	gin.SetMode(gin.DebugMode)
 	//TODO logger
@@ -32,8 +34,13 @@ func NewHTTPServer(gincfg *config.GinConfig, a *app.App) Server {
 		middlewares.ResponseLogger(gincfg.Logger),
 		gin.Recovery(),
 	)
+	httpServer := &http.Server{
+		Addr:    gincfg.Port,
+		Handler: r,
+	}
+
 	//Connect to server with default logger
-	s := Server{port: gincfg.Port, app: r}
+	s := Server{port: gincfg.Port, app: r, httpServer: httpServer}
 	//Enable all CORS policity if start on one machine
 	s.app.Use(cors.New(cors.Config{
 		AllowOrigins:     []string{"*"},                                       // Разрешаем запросы с любых доменов
@@ -58,15 +65,15 @@ func NewHTTPServer(gincfg *config.GinConfig, a *app.App) Server {
 	ProtectedRouter(api, a)
 
 	s.app.GET("/swagger/*any", ginSwagger.WrapHandler(swaggerFiles.Handler)) // ! replace
-	return s
+	return &s
 }
 
 // Start GIN and it blocked if error happened
 func (s *Server) Listen() error {
-	return s.app.Run(s.port)
+	//Can use tls after
+	return s.httpServer.ListenAndServe()
 }
 
-// Only for tests
-func (s *Server) Handler() http.Handler {
-	return s.app
+func (s *Server) Stop(ctx context.Context) error {
+	return s.httpServer.Shutdown(ctx)
 }
