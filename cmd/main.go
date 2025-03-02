@@ -5,6 +5,7 @@ import (
 	"gateway_service/internal/app"
 	"gateway_service/internal/config"
 	"gateway_service/internal/config/configrpc"
+	"gateway_service/internal/lib/logger"
 	"gateway_service/internal/ports/grpc/authorization"
 	"gateway_service/internal/ports/grpc/country"
 	"gateway_service/internal/ports/httpgin"
@@ -25,7 +26,7 @@ import (
 func main() {
 	// HERE ONLY START GATEWAY
 	//Create logger
-	logger := config.LoggerSetup(true)
+	logger := logger.LoggerSetup(true)
 
 	//Read config
 	gincfg := config.GinMustLoad(logger)
