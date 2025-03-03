@@ -245,8 +245,8 @@ const docTemplate = `{
                 }
             }
         },
-        "/api/v2/country": {
-            "get": {
+        "/api/v2/country/all": {
+            "post": {
                 "description": "Возвращает страны",
                 "consumes": [
                     "application/json"
