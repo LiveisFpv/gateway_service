@@ -47,7 +47,7 @@ func getCountryById(c *gin.Context, a *app.App) {
 // @Success 200 {object} Get_All_Country_Response
 // @Failure 401 {object}  Error_Response
 // @Failure 500  {object}  Error_Response
-// @Router /api/v2/country/all [post]
+// @Router /api/v1/country/all [post]
 func getCountryAll(c *gin.Context, a *app.App) {
 	var reqBody Get_All_Country_Request
 	if err := c.ShouldBindJSON(&reqBody); err != nil {

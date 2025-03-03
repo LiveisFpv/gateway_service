@@ -24,7 +24,7 @@ type Server struct {
 
 func NewHTTPServer(gincfg *config.GinConfig, a *app.App) *Server {
 	//Use GIN how release
-	gin.SetMode(gin.DebugMode)
+	gin.SetMode(gin.ReleaseMode)
 	//TODO logger
 	//Init clear gin server without logger and recovery
 	r := gin.New()

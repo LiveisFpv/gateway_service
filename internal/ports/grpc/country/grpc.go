@@ -47,7 +47,8 @@ func New(
 		grpc.WithChainUnaryInterceptor(
 			grpclog.UnaryClientInterceptor(interseptors.InterceptorLogger(log), logOpts...),
 			grpcretry.UnaryClientInterceptor(retryOpts...),
-		))
+		),
+	)
 	if err != nil {
 		return nil, fmt.Errorf("%s: %w", op, err)
 	}

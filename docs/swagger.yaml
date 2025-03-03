@@ -290,7 +290,7 @@ paths:
       summary: Получение страны
       tags:
       - country
-  /api/v2/country/all:
+  /api/v1/country/all:
     post:
       consumes:
       - application/json
