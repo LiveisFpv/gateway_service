@@ -45,30 +45,31 @@ type Get_CountryById_Response struct {
 	Data *CountryRepr `json:"data"`
 }
 
-type Pagination struct {
+type PaginationRepr struct {
 	Current int `json:"current"`
 	Total   int `json:"total"`
 	Limit   int `json:"limit"`
 }
 
-type Filter struct {
-	Text string `json:"text"`
+type FilterRepr struct {
+	Field string `json:"field"`
+	Value string `json:"value"`
 }
 
-type Sort struct {
+type SortRepr struct {
 	Direction string `json:"direction"`
 	By        string `json:"by"`
 }
 
 type Get_All_Country_Request struct {
-	Filter     *[]Filter  `json:"filter"`
-	Pagination Pagination `json:"pagination"`
-	Sort       *[]Sort    `json:"sort"`
+	Filter     *[]FilterRepr  `json:"filter"`
+	Pagination PaginationRepr `json:"pagination"`
+	Sort       *[]SortRepr    `json:"sort"`
 }
 
 type Get_All_Country_Response struct {
-	Data       *[]CountryRepr `json:"data"`
-	Pagination *Pagination    `json:"pagination"`
+	Data       *[]CountryRepr  `json:"data"`
+	Pagination *PaginationRepr `json:"pagination"`
 }
 
 type Create_Country_Request struct {
@@ -163,10 +164,10 @@ func DeleteCountryByIdSuccessResponce(country *domain.Country) *Delete_CountryBy
 	}
 }
 
-func GetAllCountrySuccessResponse(countries []*domain.Country, pagination *Pagination) *Get_All_Country_Response {
+func GetAllCountrySuccessResponse(countries *[]domain.Country, pagination *PaginationRepr) *Get_All_Country_Response {
 	// Parsing data
 	dat := []CountryRepr{}
-	for _, country := range countries {
+	for _, country := range *countries {
 		dat = append(dat, CountryRepr{
 			Country_id:      country.Country_id,
 			Country_title:   country.Country_title,

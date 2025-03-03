@@ -55,7 +55,30 @@ func getCountryAll(c *gin.Context, a *app.App) {
 		return
 	}
 
-	queryResp, err := a.Get_All_Country(c)
+	filter := []domain.Filter{}
+	for _, filterRepr := range *reqBody.Filter {
+		filter = append(filter, domain.Filter{
+			Field: filterRepr.Field,
+			Value: filterRepr.Value,
+		})
+	}
+
+	sort := []domain.Sort{}
+	for _, sortRepr := range *reqBody.Sort {
+		sort = append(sort, domain.Sort{
+			Direction: sortRepr.Direction,
+			By:        sortRepr.By,
+		})
+	}
+
+	queryResp, err := a.Get_All_Country(c,
+		&domain.Pagination{
+			Current: reqBody.Pagination.Current,
+			Total:   reqBody.Pagination.Total,
+			Limit:   reqBody.Pagination.Limit,
+		},
+		&filter,
+		&sort)
 	if err != nil {
 		c.JSON(http.StatusInternalServerError, ErrorResponse(err))
 		return

@@ -39,24 +39,45 @@ func (a *App) Get_CountryById(ctx context.Context, countryId int) (*domain.Count
 	}, nil
 }
 
-func (a *App) Get_All_Country(ctx context.Context) (countries []*domain.Country, err error) {
-	req := &country_req.Get_All_Country_Request{}
+func (a *App) Get_All_Country(ctx context.Context, pagination *domain.Pagination, filter *[]domain.Filter, order *[]domain.Sort) (*[]domain.Country, error) {
+
+	protoc_filter := []*country_req.Filter{}
+	for _, filterRepr := range *filter {
+		protoc_filter = append(protoc_filter, &country_req.Filter{
+			Field: filterRepr.Field,
+			Value: filterRepr.Value,
+		})
+	}
+
+	protoc_sort := []*country_req.OrderBy{}
+	for _, sortRepr := range *order {
+		protoc_sort = append(protoc_sort, &country_req.OrderBy{
+			Field:     sortRepr.By,
+			Direction: sortRepr.Direction,
+		})
+	}
+
+	req := &country_req.Get_All_Country_Request{
+		Pagination: &country_req.Pagination{},
+		Filters:    protoc_filter,
+		Orderby:    protoc_sort,
+	}
 
 	resp, err := a.client_country.Get_All_Country(ctx, req)
 	if err != nil {
 		return nil, fmt.Errorf("Get all country failed: %w", err)
 	}
 
-	countries = []*domain.Country{}
+	countries := []domain.Country{}
 	for _, country := range resp.Countries {
-		countries = append(countries, &domain.Country{
+		countries = append(countries, domain.Country{
 			Country_id:      int(country.CountryId),
 			Country_title:   country.CountryTitle,
 			Country_capital: country.CountryCapital,
 			Country_area:    country.CountryArea,
 		})
 	}
-	return countries, nil
+	return &countries, nil
 }
 
 func (a *App) Update_CountryById(ctx context.Context, model *domain.Country) (country *domain.Country, err error) {

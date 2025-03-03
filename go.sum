@@ -4,6 +4,8 @@ github.com/LiveisFPV/sso_v1 v0.0.0-20250220075905-fc712ee23d07 h1:fnP+L0LDvNOBD3
 github.com/LiveisFPV/sso_v1 v0.0.0-20250220075905-fc712ee23d07/go.mod h1:cgt97svOFWm1lgxyRlJMDWPcq3ymVRGkdznD0CiPuBs=
 github.com/LiveisFpv/country_v1 v0.1.9 h1:ccQKWsb2r2NicE2sMGt6a5Sm6kfuB+SUskoDhVXaPsU=
 github.com/LiveisFpv/country_v1 v0.1.9/go.mod h1:kyx6Vq4nuTRHOu2LACvkcj5V2pJXKL6ArGzQTLJCP6w=
+github.com/LiveisFpv/country_v1 v1.0.0 h1:rVzAJzHFfCJYK9IfYluD7aBR8O5jCd9XuLcG2mYXDIU=
+github.com/LiveisFpv/country_v1 v1.0.0/go.mod h1:kyx6Vq4nuTRHOu2LACvkcj5V2pJXKL6ArGzQTLJCP6w=
 github.com/PuerkitoBio/purell v1.1.1 h1:WEQqlqaGbrPkxLJWfBwQmfEAE1Z7ONdDLqrN38tNFfI=
 github.com/PuerkitoBio/purell v1.1.1/go.mod h1:c11w/QuzBsJSee3cPx9rAFu61PvFxuPbtSwDGJws/X0=
 github.com/PuerkitoBio/urlesc v0.0.0-20170810143723-de5bf2ad4578 h1:d+Bc7a5rLufV/sSk/8dngufqelfh6jnri85riMAaF/M=
