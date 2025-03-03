@@ -16,51 +16,6 @@ const docTemplate = `{
     "basePath": "{{.BasePath}}",
     "paths": {
         "/api/v1/country": {
-            "get": {
-                "description": "Возвращает страны",
-                "consumes": [
-                    "application/json"
-                ],
-                "produces": [
-                    "application/json"
-                ],
-                "tags": [
-                    "country"
-                ],
-                "summary": "Получение стран",
-                "parameters": [
-                    {
-                        "type": "string",
-                        "description": "Bearer token",
-                        "name": "Authorization",
-                        "in": "header",
-                        "required": true
-                    }
-                ],
-                "responses": {
-                    "200": {
-                        "description": "OK",
-                        "schema": {
-                            "type": "array",
-                            "items": {
-                                "$ref": "#/definitions/httpgin.Get_CountryById_Response"
-                            }
-                        }
-                    },
-                    "401": {
-                        "description": "Unauthorized",
-                        "schema": {
-                            "$ref": "#/definitions/httpgin.Error_Response"
-                        }
-                    },
-                    "500": {
-                        "description": "Internal Server Error",
-                        "schema": {
-                            "$ref": "#/definitions/httpgin.Error_Response"
-                        }
-                    }
-                }
-            },
             "put": {
                 "description": "Редактирует страну",
                 "consumes": [
@@ -389,44 +344,6 @@ const docTemplate = `{
                 }
             }
         },
-        "/country": {
-            "get": {
-                "description": "Возвращает страны",
-                "consumes": [
-                    "application/json"
-                ],
-                "produces": [
-                    "application/json"
-                ],
-                "tags": [
-                    "country"
-                ],
-                "summary": "Получение стран",
-                "responses": {
-                    "200": {
-                        "description": "OK",
-                        "schema": {
-                            "type": "array",
-                            "items": {
-                                "$ref": "#/definitions/httpgin.Get_CountryById_Response"
-                            }
-                        }
-                    },
-                    "401": {
-                        "description": "Unauthorized",
-                        "schema": {
-                            "$ref": "#/definitions/httpgin.Error_Response"
-                        }
-                    },
-                    "500": {
-                        "description": "Internal Server Error",
-                        "schema": {
-                            "$ref": "#/definitions/httpgin.Error_Response"
-                        }
-                    }
-                }
-            }
-        },
         "/register": {
             "post": {
                 "description": "Регистрирует пользователя",
@@ -488,7 +405,7 @@ const docTemplate = `{
                 }
             }
         },
-        "httpgin.Create_Country_Request": {
+        "httpgin.CountryDataRepr": {
             "type": "object",
             "properties": {
                 "country_area": {
@@ -502,27 +419,60 @@ const docTemplate = `{
                 }
             }
         },
-        "httpgin.Create_Country_Response": {
+        "httpgin.CountryIDRepr": {
             "type": "object",
             "properties": {
                 "country_id": {
                     "type": "integer"
+                }
+            }
+        },
+        "httpgin.CountryRepr": {
+            "type": "object",
+            "properties": {
+                "country_area": {
+                    "type": "string"
+                },
+                "country_capital": {
+                    "type": "string"
+                },
+                "country_id": {
+                    "type": "integer"
+                },
+                "country_title": {
+                    "type": "string"
+                }
+            }
+        },
+        "httpgin.Create_Country_Request": {
+            "type": "object",
+            "properties": {
+                "data": {
+                    "$ref": "#/definitions/httpgin.CountryDataRepr"
+                }
+            }
+        },
+        "httpgin.Create_Country_Response": {
+            "type": "object",
+            "properties": {
+                "data": {
+                    "$ref": "#/definitions/httpgin.CountryIDRepr"
                 }
             }
         },
         "httpgin.Delete_CountryById_Request": {
             "type": "object",
             "properties": {
-                "country_id": {
-                    "type": "integer"
+                "data": {
+                    "$ref": "#/definitions/httpgin.CountryIDRepr"
                 }
             }
         },
         "httpgin.Delete_CountryById_Response": {
             "type": "object",
             "properties": {
-                "country_title": {
-                    "type": "string"
+                "data": {
+                    "$ref": "#/definitions/httpgin.CountryDataRepr"
                 }
             }
         },
@@ -535,10 +485,13 @@ const docTemplate = `{
                 }
             }
         },
-        "httpgin.Filter": {
+        "httpgin.FilterRepr": {
             "type": "object",
             "properties": {
-                "text": {
+                "field": {
+                    "type": "string"
+                },
+                "value": {
                     "type": "string"
                 }
             }
@@ -547,13 +500,19 @@ const docTemplate = `{
             "type": "object",
             "properties": {
                 "filter": {
-                    "$ref": "#/definitions/httpgin.Filter"
+                    "type": "array",
+                    "items": {
+                        "$ref": "#/definitions/httpgin.FilterRepr"
+                    }
                 },
                 "pagination": {
-                    "$ref": "#/definitions/httpgin.Pagination"
+                    "$ref": "#/definitions/httpgin.PaginationRepr"
                 },
                 "sort": {
-                    "$ref": "#/definitions/httpgin.Sort"
+                    "type": "array",
+                    "items": {
+                        "$ref": "#/definitions/httpgin.SortRepr"
+                    }
                 }
             }
         },
@@ -563,35 +522,23 @@ const docTemplate = `{
                 "data": {
                     "type": "array",
                     "items": {
-                        "$ref": "#/definitions/httpgin.Get_CountryById_Response"
+                        "$ref": "#/definitions/httpgin.CountryRepr"
                     }
                 },
-                "error": {
-                    "type": "string"
-                },
                 "pagination": {
-                    "$ref": "#/definitions/httpgin.Pagination"
+                    "$ref": "#/definitions/httpgin.PaginationRepr"
                 }
             }
         },
         "httpgin.Get_CountryById_Response": {
             "type": "object",
             "properties": {
-                "country_area": {
-                    "type": "string"
-                },
-                "country_capital": {
-                    "type": "string"
-                },
-                "country_id": {
-                    "type": "integer"
-                },
-                "country_title": {
-                    "type": "string"
+                "data": {
+                    "$ref": "#/definitions/httpgin.CountryRepr"
                 }
             }
         },
-        "httpgin.Pagination": {
+        "httpgin.PaginationRepr": {
             "type": "object",
             "properties": {
                 "current": {
@@ -616,7 +563,7 @@ const docTemplate = `{
                 }
             }
         },
-        "httpgin.Sort": {
+        "httpgin.SortRepr": {
             "type": "object",
             "properties": {
                 "by": {
@@ -630,31 +577,16 @@ const docTemplate = `{
         "httpgin.Update_CountryById_Request": {
             "type": "object",
             "properties": {
-                "country_area": {
-                    "type": "string"
-                },
-                "country_capital": {
-                    "type": "string"
-                },
-                "country_id": {
-                    "type": "integer"
-                },
-                "country_title": {
-                    "type": "string"
+                "data": {
+                    "$ref": "#/definitions/httpgin.CountryRepr"
                 }
             }
         },
         "httpgin.Update_CountryById_Response": {
             "type": "object",
             "properties": {
-                "country_area": {
-                    "type": "string"
-                },
-                "country_capital": {
-                    "type": "string"
-                },
-                "country_title": {
-                    "type": "string"
+                "data": {
+                    "$ref": "#/definitions/httpgin.CountryDataRepr"
                 }
             }
         }
