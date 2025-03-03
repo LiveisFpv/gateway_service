@@ -21,78 +21,86 @@ type AuthResponse struct {
 }
 
 type Get_CountryById_Request struct {
-	Country_id int
+	Data *CountryIDRepr `json:"data"`
+}
+
+type CountryRepr struct {
+	Country_id      int    `json:"country_id"`
+	Country_title   string `json:"country_title"`
+	Country_capital string `json:"country_capital"`
+	Country_area    string `json:"country_area"`
+}
+
+type CountryIDRepr struct {
+	Country_id int `json:"country_id"`
+}
+
+type CountryDataRepr struct {
+	Country_title   string `json:"country_title"`
+	Country_capital string `json:"country_capital"`
+	Country_area    string `json:"country_area"`
 }
 
 type Get_CountryById_Response struct {
-	Country_id      int
-	Country_title   string
-	Country_capital string
-	Country_area    string
+	Data *CountryRepr `json:"data"`
 }
+
 type Pagination struct {
-	Current int
-	Total   int
-	Limit   int
+	Current int `json:"current"`
+	Total   int `json:"total"`
+	Limit   int `json:"limit"`
 }
 
 type Filter struct {
-	Text string
+	Text string `json:"text"`
 }
 
 type Sort struct {
-	Direction string
-	By        string
+	Direction string `json:"direction"`
+	By        string `json:"by"`
 }
+
 type Get_All_Country_Request struct {
-	Filter     Filter
-	Pagination Pagination
-	Sort       Sort
+	Filter     *[]Filter  `json:"filter"`
+	Pagination Pagination `json:"pagination"`
+	Sort       *[]Sort    `json:"sort"`
 }
 
 type Get_All_Country_Response struct {
-	Data       *[]Get_CountryById_Response
-	Pagination *Pagination
-	Error      *string
+	Data       *[]CountryRepr `json:"data"`
+	Pagination *Pagination    `json:"pagination"`
 }
 
 type Create_Country_Request struct {
-	Country_title   string
-	Country_capital string
-	Country_area    string
+	Data *CountryDataRepr `json:"data"`
 }
 
 type Create_Country_Response struct {
-	Country_id int
+	Data *CountryIDRepr `json:"data"`
 }
 
 type Update_CountryById_Request struct {
-	Country_id      int
-	Country_title   string
-	Country_capital string
-	Country_area    string
+	Data *CountryRepr `json:"data"`
 }
 
 type Update_CountryById_Response struct {
-	Country_title   string
-	Country_capital string
-	Country_area    string
+	Data *CountryDataRepr `json:"data"`
 }
 
 type Delete_CountryById_Request struct {
-	Country_id int
+	Data *CountryIDRepr `json:"data"`
 }
 
 type Delete_CountryById_Response struct {
-	Country_title string
+	Data *CountryDataRepr `json:"data"`
 }
 
 // Interface for all responses
 type ResponseData interface{}
 
 type Error_Response struct {
-	Data  *interface{}
-	Error string
+	Data  *interface{} `json:"data"`
+	Error string       `json:"error"`
 }
 
 func ErrorResponse(err error) *gin.H {
@@ -102,9 +110,6 @@ func ErrorResponse(err error) *gin.H {
 	}
 }
 
-// ! TODO Translte all response to form:
-// data: Response
-// error: string
 func SuccessResponse(data ResponseData) *gin.H {
 	return &gin.H{
 		"data":  data,
@@ -112,6 +117,7 @@ func SuccessResponse(data ResponseData) *gin.H {
 	}
 }
 
+// Response parsers
 func AuthSuccessResponce(token *domain.Token) *gin.H {
 	response := AuthResponse{
 		Token: token.Token,
@@ -119,45 +125,58 @@ func AuthSuccessResponce(token *domain.Token) *gin.H {
 	return SuccessResponse(response)
 }
 
-func GetCountryByIdSuccessResponce(country *domain.Country) *gin.H {
-	response := Get_CountryById_Response{
-		Country_id:      country.Country_id,
-		Country_title:   country.Country_title,
-		Country_capital: country.Country_capital,
-		Country_area:    country.Country_area,
+func GetCountryByIdSuccessResponce(country *domain.Country) *Get_CountryById_Response {
+	return &Get_CountryById_Response{
+		Data: &CountryRepr{
+			Country_id:      country.Country_id,
+			Country_title:   country.Country_title,
+			Country_capital: country.Country_capital,
+			Country_area:    country.Country_area,
+		},
 	}
-	return SuccessResponse(response)
 }
 
-func UpdateCountryByIdSuccessResponce(country *domain.Country) *gin.H {
-	response := Update_CountryById_Response{
-		Country_title:   country.Country_title,
-		Country_capital: country.Country_capital,
-		Country_area:    country.Country_area,
+func UpdateCountryByIdSuccessResponce(country *domain.Country) *Update_CountryById_Response {
+	return &Update_CountryById_Response{
+		Data: &CountryDataRepr{
+			Country_title:   country.Country_title,
+			Country_capital: country.Country_capital,
+			Country_area:    country.Country_area,
+		},
 	}
-	return SuccessResponse(response)
 }
-func CreateCountryByIdSuccessResponce(Country_id int) *gin.H {
-	response := Create_Country_Response{
-		Country_id: Country_id,
+func CreateCountrySuccessResponce(Country_id int) *Create_Country_Response {
+	return &Create_Country_Response{
+		Data: &CountryIDRepr{
+			Country_id: Country_id,
+		},
 	}
-	return SuccessResponse(response)
 }
-func DeleteCountryByIdSuccessResponce(Country_title string) *gin.H {
-	response := Delete_CountryById_Response{
-		Country_title: Country_title,
+
+func DeleteCountryByIdSuccessResponce(country *domain.Country) *Delete_CountryById_Response {
+	return &Delete_CountryById_Response{
+		Data: &CountryDataRepr{
+			Country_title:   country.Country_title,
+			Country_capital: country.Country_capital,
+			Country_area:    country.Country_area,
+		},
 	}
-	return SuccessResponse(response)
 }
-func GetAllCountrySuccessResponse(countries []*domain.Country) *gin.H {
-	var response []Get_CountryById_Response
+
+func GetAllCountrySuccessResponse(countries []*domain.Country, pagination *Pagination) *Get_All_Country_Response {
+	// Parsing data
+	dat := []CountryRepr{}
 	for _, country := range countries {
-		response = append(response, Get_CountryById_Response{
+		dat = append(dat, CountryRepr{
 			Country_id:      country.Country_id,
 			Country_title:   country.Country_title,
 			Country_capital: country.Country_capital,
 			Country_area:    country.Country_area,
 		})
 	}
-	return SuccessResponse(response)
+
+	return &Get_All_Country_Response{
+		Data:       &dat,
+		Pagination: pagination,
+	}
 }

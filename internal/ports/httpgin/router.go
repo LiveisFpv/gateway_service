@@ -15,7 +15,7 @@ func ProtectedRouter(r *gin.RouterGroup, a *app.App) {
 	r.DELETE("/country", func(c *gin.Context) { deleteCountryById(c, a) })
 }
 func TestRounter(r *gin.RouterGroup, a *app.App) {
-	r.POST("/country", func(c *gin.Context) { new_getCountryAll(c, a) })
+	// r.POST("/country", func(c *gin.Context) { new_getCountryAll(c, a) })
 }
 
 // Open Router that getted a auth for user, without other functional API

@@ -43,31 +43,26 @@ func getCountryById(c *gin.Context, a *app.App) {
 // @Accept json
 // @Produce json
 // @Param Authorization header string true "Bearer token"
-// @Success 200 {object} []Get_CountryById_Response
+// @Param data body Get_All_Country_Request true "Filter,Pagination,Sort"
+// @Success 200 {object} Get_All_Country_Response
 // @Failure 401 {object}  Error_Response
 // @Failure 500  {object}  Error_Response
-// @Router /api/v1/country [get]
+// @Router /api/v2/country [post]
 func getCountryAll(c *gin.Context, a *app.App) {
-	countries, err := a.Get_All_Country(c)
+	var reqBody Get_All_Country_Request
+	if err := c.ShouldBindJSON(&reqBody); err != nil {
+		c.JSON(http.StatusBadRequest, ErrorResponse(err))
+		return
+	}
+
+	queryResp, err := a.Get_All_Country(c)
 	if err != nil {
 		c.JSON(http.StatusInternalServerError, ErrorResponse(err))
 		return
 	}
 
-	c.JSON(http.StatusOK, GetAllCountrySuccessResponse(countries))
+	c.JSON(http.StatusOK, GetAllCountrySuccessResponse(queryResp, &reqBody.Pagination))
 }
-// Метод для получения стран (country)
-// @Summary Получение стран
-// @Description Возвращает страны
-// @Tags country
-// @Accept json
-// @Produce json
-// @Success 200 {object} []Get_CountryById_Response
-// @Failure 500  {object}  Error_Response
-// @Router /country [get]
-func getCountryAll2(c *gin.Context, a *app.App) {}
-
-
 
 // Метод для добавления страны (country)
 // @Summary Добавление страну
@@ -89,13 +84,17 @@ func createCountry(c *gin.Context, a *app.App) {
 		return
 	}
 
-	resp, err := a.Add_Country(c, reqBody.Country_title, reqBody.Country_capital, reqBody.Country_area)
+	resp, err := a.Add_Country(c,
+		reqBody.Data.Country_title,
+		reqBody.Data.Country_capital,
+		reqBody.Data.Country_area,
+	)
 	if err != nil {
 		c.JSON(http.StatusInternalServerError, ErrorResponse(err))
 		return
 	}
 
-	c.JSON(http.StatusOK, CreateCountryByIdSuccessResponce(resp))
+	c.JSON(http.StatusOK, CreateCountrySuccessResponce(resp))
 }
 
 // Метод для редактирования страны (country)
@@ -119,10 +118,10 @@ func updateCountryById(c *gin.Context, a *app.App) {
 	}
 
 	resp, err := a.Update_CountryById(c, &domain.Country{
-		Country_id:      reqBody.Country_id,
-		Country_title:   reqBody.Country_title,
-		Country_capital: reqBody.Country_capital,
-		Country_area:    reqBody.Country_area,
+		Country_id:      reqBody.Data.Country_id,
+		Country_title:   reqBody.Data.Country_title,
+		Country_capital: reqBody.Data.Country_capital,
+		Country_area:    reqBody.Data.Country_area,
 	})
 	if err != nil {
 		c.JSON(http.StatusInternalServerError, ErrorResponse(err))
@@ -152,7 +151,7 @@ func deleteCountryById(c *gin.Context, a *app.App) {
 		return
 	}
 
-	resp, err := a.Delete_CountryById(c, reqBody.Country_id)
+	resp, err := a.Delete_CountryById(c, reqBody.Data.Country_id)
 	if err != nil {
 		c.JSON(http.StatusInternalServerError, ErrorResponse(err))
 		return
