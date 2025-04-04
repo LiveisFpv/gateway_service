@@ -99,6 +99,13 @@ definitions:
       data:
         $ref: '#/definitions/httpgin.CountryRepr'
     type: object
+  httpgin.Get_Pictures_Response:
+    properties:
+      data:
+        items:
+          $ref: '#/definitions/httpgin.Pictures_ID_Response'
+        type: array
+    type: object
   httpgin.PaginationRepr:
     properties:
       current:
@@ -107,6 +114,15 @@ definitions:
         type: integer
       total:
         type: integer
+    type: object
+  httpgin.Pictures_ID_Response:
+    properties:
+      description:
+        type: string
+      imageSrc:
+        type: string
+      title:
+        type: string
     type: object
   httpgin.RegisterRequest:
     properties:
@@ -359,6 +375,21 @@ paths:
       summary: Авторизация
       tags:
       - auth
+  /pictures:
+    get:
+      consumes:
+      - application/json
+      description: Возвращает картинки
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            $ref: '#/definitions/httpgin.Get_Pictures_Response'
+      summary: Возвращает картинки
+      tags:
+      - country
   /register:
     post:
       consumes:

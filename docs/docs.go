@@ -344,6 +344,29 @@ const docTemplate = `{
                 }
             }
         },
+        "/pictures": {
+            "get": {
+                "description": "Возвращает картинки",
+                "consumes": [
+                    "application/json"
+                ],
+                "produces": [
+                    "application/json"
+                ],
+                "tags": [
+                    "country"
+                ],
+                "summary": "Возвращает картинки",
+                "responses": {
+                    "200": {
+                        "description": "OK",
+                        "schema": {
+                            "$ref": "#/definitions/httpgin.Get_Pictures_Response"
+                        }
+                    }
+                }
+            }
+        },
         "/register": {
             "post": {
                 "description": "Регистрирует пользователя",
@@ -541,6 +564,17 @@ const docTemplate = `{
                 }
             }
         },
+        "httpgin.Get_Pictures_Response": {
+            "type": "object",
+            "properties": {
+                "data": {
+                    "type": "array",
+                    "items": {
+                        "$ref": "#/definitions/httpgin.Pictures_ID_Response"
+                    }
+                }
+            }
+        },
         "httpgin.PaginationRepr": {
             "type": "object",
             "properties": {
@@ -552,6 +586,20 @@ const docTemplate = `{
                 },
                 "total": {
                     "type": "integer"
+                }
+            }
+        },
+        "httpgin.Pictures_ID_Response": {
+            "type": "object",
+            "properties": {
+                "description": {
+                    "type": "string"
+                },
+                "imageSrc": {
+                    "type": "string"
+                },
+                "title": {
+                    "type": "string"
                 }
             }
         },
