@@ -3,7 +3,7 @@ package authorization
 import (
 	"context"
 
-	"github.com/LiveisFPV/sso_v1/gen/go/sso"
+	sso "github.com/LiveisFPV/sso_v1/gen/go/sso"
 )
 
 // Метод для вызова Login у auth-сервиса

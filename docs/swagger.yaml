@@ -6,6 +6,8 @@ definitions:
         type: string
       password:
         type: string
+      yandex_token:
+        type: string
     type: object
   httpgin.AuthResponse:
     properties:
@@ -111,6 +113,8 @@ definitions:
       email:
         type: string
       password:
+        type: string
+      yandex_token:
         type: string
     type: object
   httpgin.SortRepr:

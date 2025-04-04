@@ -30,7 +30,7 @@ func auth(c *gin.Context, a *app.App) {
 		return
 	}
 	//Its only way to the sun (auth-service)
-	token, err := a.Auth(c, reqBody.Email, reqBody.Password)
+	token, err := a.Auth(c, reqBody.Email, reqBody.Password, reqBody.YandexToken)
 	if err != nil {
 		c.JSON(http.StatusUnauthorized, ErrorResponse(err))
 		return
@@ -62,7 +62,7 @@ func register(c *gin.Context, a *app.App) {
 		return
 	}
 	//Its only way to the sun (auth-service)
-	err := a.Register(c, reqBody.Email, reqBody.Password)
+	err := a.Register(c, reqBody.Email, reqBody.Password, reqBody.YandexToken)
 	if err != nil {
 		c.JSON(http.StatusInternalServerError, ErrorResponse(err))
 		return

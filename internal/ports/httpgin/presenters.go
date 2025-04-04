@@ -7,13 +7,15 @@ import (
 )
 
 type RegisterRequest struct {
-	Email    string `json:"email"`
-	Password string `json:"password"`
+	Email       string  `json:"email"`
+	Password    *string `json:"password"`
+	YandexToken *string `json:"yandex_token"`
 }
 
 type AuthRequest struct {
-	Email    string `json:"email"`
-	Password string `json:"password"`
+	Email       string  `json:"email"`
+	Password    *string `json:"password"`
+	YandexToken *string `json:"yandex_token"`
 }
 
 type AuthResponse struct {

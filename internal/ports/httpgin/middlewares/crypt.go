@@ -52,6 +52,7 @@ func AuthMiddleware() gin.HandlerFunc {
 		c.Set("email", claims["email"])
 		c.Set("app_id", claims["app_id"])
 		c.Set("end_time", claims["end_time"])
+		c.Set("yandex_token", claims["yandex_token"])
 
 		c.Next()
 	}

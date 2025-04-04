@@ -394,6 +394,9 @@ const docTemplate = `{
                 },
                 "password": {
                     "type": "string"
+                },
+                "yandex_token": {
+                    "type": "string"
                 }
             }
         },
@@ -559,6 +562,9 @@ const docTemplate = `{
                     "type": "string"
                 },
                 "password": {
+                    "type": "string"
+                },
+                "yandex_token": {
                     "type": "string"
                 }
             }

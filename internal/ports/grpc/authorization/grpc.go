@@ -5,7 +5,7 @@ import (
 	"gateway_service/internal/ports/grpc/interseptors"
 	"time"
 
-	"github.com/LiveisFPV/sso_v1/gen/go/sso"
+	sso "github.com/LiveisFPV/sso_v1/gen/go/sso"
 	grpclog "github.com/grpc-ecosystem/go-grpc-middleware/v2/interceptors/logging"
 	grpcretry "github.com/grpc-ecosystem/go-grpc-middleware/v2/interceptors/retry"
 	"github.com/sirupsen/logrus"

@@ -7,7 +7,7 @@ import (
 	"gateway_service/internal/ports/grpc/country"
 	"gateway_service/internal/repository"
 
-	"github.com/LiveisFPV/sso_v1/gen/go/sso"
+	sso "github.com/LiveisFPV/sso_v1/gen/go/sso"
 )
 
 type App struct {
@@ -25,11 +25,12 @@ func NewApp(repo repository.Repository, client_auth *authorization.Client, clien
 }
 
 // ? Кто ты воин
-func (a *App) Auth(ctx context.Context, email, password string) (string, error) {
+func (a *App) Auth(ctx context.Context, email string, password, yandex_token *string) (string, error) {
 	req := &sso.LoginRequest{
-		Email:    email,
-		Password: password,
-		AppId:    1,
+		Email:       email,
+		Password:    password,
+		AppId:       1,
+		YandexToken: yandex_token,
 	}
 
 	resp, err := a.client_auth.Login(ctx, req)
@@ -40,10 +41,11 @@ func (a *App) Auth(ctx context.Context, email, password string) (string, error) 
 	return resp.Token, nil
 }
 
-func (a *App) Register(ctx context.Context, email, password string) error {
+func (a *App) Register(ctx context.Context, email string, password, yandex_token *string) error {
 	req := &sso.RegisterRequest{
-		Email:    email,
-		Password: password,
+		Email:       email,
+		Password:    password,
+		YandexToken: yandex_token,
 	}
 
 	_, err := a.client_auth.Register(ctx, req)
