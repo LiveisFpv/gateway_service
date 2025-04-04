@@ -6,6 +6,7 @@ services:
       dockerfile: Dockerfile
     ports:
       - "18000:18000"
+      # - "40000:40000"
     environment:
       - GATEWAY_PORT=18000
       - DB_HOST=db

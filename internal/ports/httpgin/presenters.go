@@ -12,6 +12,17 @@ type RegisterRequest struct {
 	YandexToken *string `json:"yandex_token"`
 }
 
+type UserDataRequest struct {
+	UID           int64   `json:id`
+	Birthday      string  `json:birthday`
+	Height        int     `json:height`
+	Weight        float64 `json:weight`
+	FitnessTarget string  `json:fitness_target`
+	Sex           bool    `json:sex`
+	Hypertain     bool    `json:hypertain`
+	Diabet        bool    `json:diabet`
+}
+
 type AuthRequest struct {
 	Email       string  `json:"email"`
 	Password    *string `json:"password"`
