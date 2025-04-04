@@ -13,14 +13,24 @@ type RegisterRequest struct {
 }
 
 type UserDataRequest struct {
-	UID           int64   `json:id`
-	Birthday      string  `json:birthday`
-	Height        int     `json:height`
-	Weight        float64 `json:weight`
-	FitnessTarget string  `json:fitness_target`
-	Sex           bool    `json:sex`
-	Hypertain     bool    `json:hypertain`
-	Diabet        bool    `json:diabet`
+	UID           int64   `json:"id"`
+	Birthday      string  `json:"birthday"`
+	Height        int     `json:"height"`
+	Weight        float64 `json:"weight"`
+	FitnessTarget string  `json:"fitness_target"`
+	Sex           bool    `json:"sex"`
+	Hypertain     bool    `json:"hypertain"`
+	Diabet        bool    `json:"diabet"`
+}
+
+type Get_Pictures_Response struct {
+	Data *[]Pictures_ID_Response
+}
+
+type Pictures_ID_Response struct {
+	Title       string `json:"title"`
+	Description string `json:"description"`
+	ImageSrc    string `json:"imageSrc"`
 }
 
 type AuthRequest struct {

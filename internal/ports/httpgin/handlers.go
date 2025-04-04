@@ -9,6 +9,31 @@ import (
 	"github.com/gin-gonic/gin"
 )
 
+// Метод для получения картинок?
+// @Summary Возвращает картинки
+// @Description Возвращает картинки
+// @Tags country
+// @Accept json
+// @Produce json
+// @Success 200 {object} Get_Pictures_Response
+// @Router /pictures [get]
+func getPictures(c *gin.Context, a *app.App) {
+	c.JSON(http.StatusOK, Get_Pictures_Response{
+		&[]Pictures_ID_Response{
+			{
+				Title:       "Yoga",
+				Description: "Yoga",
+				ImageSrc:    "https://www.everydayyoga.com/cdn/shop/articles/yoga_1024x1024.jpg?v=1703853908",
+			},
+			{
+				Title:       "Body pump",
+				Description: "Body pump",
+				ImageSrc:    "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQZS2jTw7KieqO57Xmu8YrgiaYp8gPxnD-tAQ&s",
+			},
+		},
+	})
+}
+
 // Метод для получения страны (country)
 // @Summary Получение страны
 // @Description Возвращает страну
