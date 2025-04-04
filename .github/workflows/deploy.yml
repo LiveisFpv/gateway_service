@@ -1,4 +1,4 @@
-name: Deploy ml_service
+name: Deploy Gateway_service
 
 on:
   push:
@@ -23,7 +23,7 @@ jobs:
       - name: Deploy to VPS
         run: |
           ssh ${{ secrets.SSH_USER }}@${{ secrets.SSH_HOST }} << 'EOF'
-            cd ~/ml_service
+            cd ~/Gateway_service
             git pull origin main
             docker compose build
             docker compose down
