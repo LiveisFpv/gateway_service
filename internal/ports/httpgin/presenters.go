@@ -119,6 +119,63 @@ type Delete_CountryById_Response struct {
 	Data *CountryDataRepr `json:"data"`
 }
 
+type Dishes struct {
+	Id          int
+	Time        string
+	Title       string
+	Callory     float64
+	Fat         float64
+	Protein     float64
+	Carbs       float64
+	Description string
+}
+
+type Train struct {
+	Id          int
+	Title       string
+	Description string
+	User_level  int
+}
+
+type Plan_diet struct {
+	Dishes_id int
+	Weight    float64
+	User_id   int
+	Date      string
+}
+
+type Plan_train struct {
+	Train_id int
+	User_Id  int
+	Date     string
+}
+
+type History struct {
+	User_id int
+	Weight  float64
+	Date    string
+}
+
+type Dishes_Response struct {
+	Data Dishes
+}
+
+type Train_Response struct {
+	Data Train
+}
+
+type Plan_diet_Response struct {
+	Data *[]Plan_diet
+}
+
+type Plan_train_Response struct {
+	Data *[]Plan_train
+}
+
+type History_Response struct {
+	Data *[]History
+}
+
 // Interface for all responses
 type ResponseData interface{}
 

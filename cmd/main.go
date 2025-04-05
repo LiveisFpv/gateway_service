@@ -8,6 +8,7 @@ import (
 	"gateway_service/internal/lib/logger"
 	"gateway_service/internal/ports/grpc/authorization"
 	"gateway_service/internal/ports/grpc/country"
+	"gateway_service/internal/ports/grpc/fitness"
 	"gateway_service/internal/ports/httpgin"
 	"gateway_service/internal/repository"
 	"os"
@@ -69,7 +70,15 @@ func main() {
 		client_country.Close()
 	}()
 
-	usecase := app.NewApp(repo, client_auth, client_country)
+	//Create connection to fitness service
+	fitnesscfg := configrpc.FitnessSetup(logger)
+	client_fitness, err := fitness.New(fitnesscfg.Logger, fitnesscfg.Address, fitnesscfg.Timeout, fitnesscfg.RetriesCount)
+
+	if err != nil {
+		logger.WithError(err).Fatalf("cant connect to grpc_country service")
+	}
+
+	usecase := app.NewApp(repo, client_auth, client_country, client_fitness)
 
 	//Start service
 	server := httpgin.NewHTTPServer(gincfg, usecase)

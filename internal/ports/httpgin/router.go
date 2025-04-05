@@ -13,6 +13,18 @@ func ProtectedRouter(r *gin.RouterGroup, a *app.App) {
 	r.POST("/country", func(c *gin.Context) { createCountry(c, a) })
 	r.PUT("/country", func(c *gin.Context) { updateCountryById(c, a) })
 	r.DELETE("/country", func(c *gin.Context) { deleteCountryById(c, a) })
+
+	r.GET("/users/:user_id", func(c *gin.Context) { getUser(c, a) })
+	r.POST("/users", func(c *gin.Context) { createUser(c, a) })
+	r.PUT("/users", func(c *gin.Context) { updateUser(c, a) })
+
+	r.GET("/user/plan_diet", func(c *gin.Context) { GetPlanDiet(c, a) })
+	r.GET("/user/plan_train", func(c *gin.Context) { GetPlanTrain(c, a) })
+	r.GET("/user/history", func(c *gin.Context) { GetPlanHistory(c, a) })
+	r.PUT("/user/history", func(c *gin.Context) { PutPlanHistory(c, a) })
+	r.GET("/dishes/cooking/:dish_id", func(c *gin.Context) { GetDishesbyID(c, a) })
+	r.GET("/train/instruction/:train_id", func(c *gin.Context) { GetTrainbyID(c, a) })
+
 }
 func TestRounter(r *gin.RouterGroup, a *app.App) {
 	// r.POST("/country", func(c *gin.Context) { new_getCountryAll(c, a) })

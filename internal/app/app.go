@@ -5,6 +5,7 @@ import (
 	"fmt"
 	"gateway_service/internal/ports/grpc/authorization"
 	"gateway_service/internal/ports/grpc/country"
+	"gateway_service/internal/ports/grpc/fitness"
 	"gateway_service/internal/repository"
 
 	sso "github.com/LiveisFPV/sso_v1/gen/go/sso"
@@ -14,13 +15,15 @@ type App struct {
 	repo           repository.Repository
 	client_auth    *authorization.Client
 	client_country *country.Client
+	client_fitness *fitness.Client
 }
 
-func NewApp(repo repository.Repository, client_auth *authorization.Client, client_country *country.Client) *App {
+func NewApp(repo repository.Repository, client_auth *authorization.Client, client_country *country.Client, client_fitness *fitness.Client) *App {
 	return &App{
 		repo:           repo,
 		client_auth:    client_auth,
 		client_country: client_country,
+		client_fitness: client_fitness,
 	}
 }
 
