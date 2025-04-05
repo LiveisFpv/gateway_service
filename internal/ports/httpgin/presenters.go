@@ -120,60 +120,60 @@ type Delete_CountryById_Response struct {
 }
 
 type Dishes struct {
-	Id          int
-	Time        string
-	Title       string
-	Callory     float64
-	Fat         float64
-	Protein     float64
-	Carbs       float64
-	Description string
+	Id          int     `json:"id"`
+	Time        string  `json:"time"`
+	Title       string  `json:"title"`
+	Callory     float64 `json:"callory"`
+	Fat         float64 `json:"fat"`
+	Protein     float64 `json:"protein"`
+	Carbs       float64 `json:"carbs"`
+	Description string  `json:"description"`
 }
 
 type Train struct {
-	Id          int
-	Title       string
-	Description string
-	User_level  int
+	Id          int    `json:"id"`
+	Title       string `json:"title"`
+	Description string `json:"description"`
+	User_level  int    `json:"user_level"`
 }
 
 type Plan_diet struct {
-	Dishes_id int
-	Weight    float64
-	User_id   int
-	Date      string
+	Dishes_id int     `json:"dishes_id"`
+	Weight    float64 `json:"weight"`
+	User_id   int     `json:"user_id"`
+	Date      string  `json:"date"`
 }
 
 type Plan_train struct {
-	Train_id int
-	User_Id  int
-	Date     string
+	Train_id int    `json:"train_id"`
+	User_Id  int    `json:"user_id"`
+	Date     string `json:"date"`
 }
 
 type History struct {
-	User_id int
-	Weight  float64
-	Date    string
+	User_id int     `json:"user_id"`
+	Weight  float64 `json:"weight"`
+	Date    string  `json:"date"`
 }
 
 type Dishes_Response struct {
-	Data Dishes
+	Data Dishes `json:"data"`
 }
 
 type Train_Response struct {
-	Data Train
+	Data Train `json:"data"`
 }
 
 type Plan_diet_Response struct {
-	Data *[]Plan_diet
+	Data *[]Plan_diet `json:"data"`
 }
 
 type Plan_train_Response struct {
-	Data *[]Plan_train
+	Data *[]Plan_train `json:"data"`
 }
 
 type History_Response struct {
-	Data *[]History
+	Data *[]History `json:"data"`
 }
 
 // Interface for all responses
