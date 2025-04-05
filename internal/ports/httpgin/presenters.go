@@ -13,28 +13,28 @@ type RegisterRequest struct {
 }
 
 type UserPut struct {
-	User_firstName      *string  `json:"user_firstName     "`
-	User_lastName       *string  `json:"user_lastName      "`
-	User_middleName     *string  `json:"user_middleName    "`
-	User_birthday       *string  `json:"user_birthday      "`
-	User_height         *int32   `json:"user_height        "`
-	User_weight         *float64 `json:"user_weight        "`
+	User_firstName      *string  `json:"user_firstName"`
+	User_lastName       *string  `json:"user_lastName"`
+	User_middleName     *string  `json:"user_middleName"`
+	User_birthday       *string  `json:"user_birthday"`
+	User_height         *int32   `json:"user_height"`
+	User_weight         *float64 `json:"user_weight"`
 	User_fitness_target *string  `json:"user_fitness_target"`
-	User_sex            *bool    `json:"user_sex           "`
-	User_level          *int32   `json:"user_level         "`
+	User_sex            *bool    `json:"user_sex"`
+	User_level          *int32   `json:"user_level"`
 }
 
 type User struct {
-	User_id             int     `json:"user_id            "`
-	User_firstName      string  `json:"user_firstName     "`
-	User_lastName       string  `json:"user_lastName      "`
-	User_middleName     *string `json:"user_middleName    "`
-	User_birthday       string  `json:"user_birthday      "`
-	User_height         int     `json:"user_height        "`
-	User_weight         float64 `json:"user_weight        "`
+	User_id             int     `json:"user_id"`
+	User_firstName      string  `json:"user_firstName"`
+	User_lastName       string  `json:"user_lastName"`
+	User_middleName     *string `json:"user_middleName"`
+	User_birthday       string  `json:"user_birthday"`
+	User_height         int     `json:"user_height"`
+	User_weight         float64 `json:"user_weight"`
 	User_fitness_target string  `json:"user_fitness_target"`
-	User_sex            bool    `json:"user_sex           "`
-	User_level          int     `json:"user_level         "`
+	User_sex            bool    `json:"user_sex"`
+	User_level          int     `json:"user_level"`
 }
 
 type UserResponse struct {
