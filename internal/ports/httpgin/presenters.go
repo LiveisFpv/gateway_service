@@ -13,7 +13,6 @@ type RegisterRequest struct {
 }
 
 type UserPut struct {
-	User_id             *int     `json:"user_id            "`
 	User_firstName      *string  `json:"user_firstName     "`
 	User_lastName       *string  `json:"user_lastName      "`
 	User_middleName     *string  `json:"user_middleName    "`
