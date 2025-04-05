@@ -12,15 +12,34 @@ type RegisterRequest struct {
 	YandexToken *string `json:"yandex_token"`
 }
 
-type UserDataRequest struct {
-	UID           int64   `json:"id"`
-	Birthday      string  `json:"birthday"`
-	Height        int     `json:"height"`
-	Weight        float64 `json:"weight"`
-	FitnessTarget string  `json:"fitness_target"`
-	Sex           bool    `json:"sex"`
-	Hypertain     bool    `json:"hypertain"`
-	Diabet        bool    `json:"diabet"`
+type UserPut struct {
+	User_id             *int     `json:"user_id            "`
+	User_firstName      *string  `json:"user_firstName     "`
+	User_lastName       *string  `json:"user_lastName      "`
+	User_middleName     *string  `json:"user_middleName    "`
+	User_birthday       *string  `json:"user_birthday      "`
+	User_height         *int32   `json:"user_height        "`
+	User_weight         *float64 `json:"user_weight        "`
+	User_fitness_target *string  `json:"user_fitness_target"`
+	User_sex            *bool    `json:"user_sex           "`
+	User_level          *int32   `json:"user_level         "`
+}
+
+type User struct {
+	User_id             int     `json:"user_id            "`
+	User_firstName      string  `json:"user_firstName     "`
+	User_lastName       string  `json:"user_lastName      "`
+	User_middleName     *string `json:"user_middleName    "`
+	User_birthday       string  `json:"user_birthday      "`
+	User_height         int     `json:"user_height        "`
+	User_weight         float64 `json:"user_weight        "`
+	User_fitness_target string  `json:"user_fitness_target"`
+	User_sex            bool    `json:"user_sex           "`
+	User_level          int     `json:"user_level         "`
+}
+
+type UserResponse struct {
+	Data User
 }
 
 type Get_Pictures_Response struct {
@@ -260,4 +279,19 @@ func GetAllCountrySuccessResponse(countries *[]domain.Country, pagination *Pagin
 		Data:       &dat,
 		Pagination: pagination,
 	}
+}
+func UserSuccessResponse(user *domain.User) *UserResponse {
+	return &UserResponse{
+		Data: User{
+			User_id:             user.User_id,
+			User_firstName:      user.User_firstName,
+			User_lastName:       user.User_lastName,
+			User_middleName:     user.User_middleName,
+			User_birthday:       user.User_birthday,
+			User_height:         user.User_height,
+			User_weight:         user.User_weight,
+			User_fitness_target: user.User_fitness_target,
+			User_sex:            user.User_sex,
+			User_level:          user.User_level,
+		}}
 }

@@ -1,6 +1,7 @@
 package httpgin
 
 import (
+	"fmt"
 	"gateway_service/internal/app"
 	"gateway_service/internal/domain"
 	"net/http"
@@ -36,31 +37,95 @@ func getPictures(c *gin.Context, a *app.App) {
 }
 
 func getUser(c *gin.Context, a *app.App) {
-	// user_id, err := strconv.Atoi(c.Param("user_id"))
-	// if err != nil {
-	// 	c.JSON(http.StatusBadRequest, ErrorResponse(err))
-	// }
-	// user, err := a.GetUser(c, user_id)
-	// if err != nil {
-	// 	c.JSON(http.StatusInternalServerError, ErrorResponse(err))
-	// }
-	// c.JSON(http.StatusOK, UserSuccessResponse(user))
+	uidVal, exists := c.Keys["uid"]
+	if !exists {
+		c.JSON(http.StatusUnauthorized, ErrorResponse(fmt.Errorf("uid not found")))
+		return
+	}
+
+	user_id, ok := uidVal.(int)
+	if !ok {
+		c.JSON(http.StatusInternalServerError, ErrorResponse(fmt.Errorf("uid is not an integer")))
+		return
+	}
+	user, err := a.GetUser(c, user_id)
+	if err != nil {
+		c.JSON(http.StatusInternalServerError, ErrorResponse(err))
+		return
+	}
+	c.JSON(http.StatusOK, UserSuccessResponse(user))
 }
 
 func createUser(c *gin.Context, a *app.App) {
-	// var reqBody Create_User_Request
-	// if err := c.ShouldBindJSON(&reqBody); err != nil {
-	// 	c.JSON(http.StatusBadRequest, ErrorResponse(err))
-	// 	return
-	// }
+	uidVal, exists := c.Keys["uid"]
+	if !exists {
+		c.JSON(http.StatusUnauthorized, ErrorResponse(fmt.Errorf("uid not found")))
+		return
+	}
+
+	user_id, ok := uidVal.(int)
+	if !ok {
+		c.JSON(http.StatusInternalServerError, ErrorResponse(fmt.Errorf("uid is not an integer")))
+		return
+	}
+	var reqBody UserPut
+	if err := c.ShouldBindJSON(&reqBody); err != nil {
+		c.JSON(http.StatusBadRequest, ErrorResponse(err))
+		return
+	}
+	user, err := a.CreateUser(c,
+		user_id,
+		reqBody.User_firstName,
+		reqBody.User_lastName,
+		reqBody.User_middleName,
+		reqBody.User_birthday,
+		reqBody.User_height,
+		reqBody.User_weight,
+		reqBody.User_fitness_target,
+		reqBody.User_sex,
+		reqBody.User_level,
+	)
+	if err != nil {
+		c.JSON(http.StatusInternalServerError, ErrorResponse(err))
+		return
+	}
+	c.JSON(http.StatusOK, UserSuccessResponse(user))
 }
 
 func updateUser(c *gin.Context, a *app.App) {
-	// var reqBody Update_User_Request
-	// if err := c.ShouldBindJSON(&reqBody); err != nil {
-	// 	c.JSON(http.StatusBadRequest, ErrorResponse(err))
-	// 	return
-	// }
+	uidVal, exists := c.Keys["uid"]
+	if !exists {
+		c.JSON(http.StatusUnauthorized, ErrorResponse(fmt.Errorf("uid not found")))
+		return
+	}
+
+	user_id, ok := uidVal.(int)
+	if !ok {
+		c.JSON(http.StatusInternalServerError, ErrorResponse(fmt.Errorf("uid is not an integer")))
+		return
+	}
+	var reqBody UserPut
+	if err := c.ShouldBindJSON(&reqBody); err != nil {
+		c.JSON(http.StatusBadRequest, ErrorResponse(err))
+		return
+	}
+	user, err := a.UpdateUser(c,
+		user_id,
+		reqBody.User_firstName,
+		reqBody.User_lastName,
+		reqBody.User_middleName,
+		reqBody.User_birthday,
+		reqBody.User_height,
+		reqBody.User_weight,
+		reqBody.User_fitness_target,
+		reqBody.User_sex,
+		reqBody.User_level,
+	)
+	if err != nil {
+		c.JSON(http.StatusInternalServerError, ErrorResponse(err))
+		return
+	}
+	c.JSON(http.StatusOK, UserSuccessResponse(user))
 }
 
 func GetPlanDiet(c *gin.Context, a *app.App) {

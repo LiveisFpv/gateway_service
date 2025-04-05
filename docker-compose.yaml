@@ -20,6 +20,9 @@ services:
       - COUNTRY_SERVICE_ADDRESS=country_service:14000
       - COUNTRY_SERVICE_TIMEOUT=15s
       - COUNTRY_SERVICE_RETRIES=3
+      - FITNESS_SERVICE_ADDRESS=fitness_service:14500
+      - FITNESS_SERVICE_TIMEOUT=15s
+      - FITNESS_SERVICE_RETRIES=3
     depends_on:
       db:
         condition: service_started
