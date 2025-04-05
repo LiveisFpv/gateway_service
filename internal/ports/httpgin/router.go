@@ -15,7 +15,7 @@ func ProtectedRouter(r *gin.RouterGroup, a *app.App) {
 	r.DELETE("/country", func(c *gin.Context) { deleteCountryById(c, a) })
 
 	r.GET("/user", func(c *gin.Context) { getUser(c, a) })
-	r.POST("/user", func(c *gin.Context) { createUser(c, a) })
+	r.POST("/edit-profile", func(c *gin.Context) { createUser(c, a) })
 	r.PUT("/edit-profile", func(c *gin.Context) { updateUser(c, a) })
 
 	r.GET("/user/plan_diet", func(c *gin.Context) { GetPlanDiet(c, a) })
