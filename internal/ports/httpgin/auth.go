@@ -67,5 +67,7 @@ func register(c *gin.Context, a *app.App) {
 		c.JSON(http.StatusInternalServerError, ErrorResponse(err))
 		return
 	}
-	c.Status(http.StatusOK)
+	c.JSON(http.StatusOK, RegisterResponse{
+		Data: true,
+	})
 }

@@ -194,6 +194,9 @@ type Plan_train_Response struct {
 type History_Response struct {
 	Data *[]History `json:"data"`
 }
+type RegisterResponse struct {
+	Data bool `json:"data"`
+}
 
 // Interface for all responses
 type ResponseData interface{}
