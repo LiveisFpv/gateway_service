@@ -43,9 +43,14 @@ func getUser(c *gin.Context, a *app.App) {
 		return
 	}
 
-	user_id, ok := uidVal.(int)
+	user_id_str, ok := uidVal.(string)
 	if !ok {
-		c.JSON(http.StatusInternalServerError, ErrorResponse(fmt.Errorf("uid is not an integer")))
+		c.JSON(http.StatusInternalServerError, ErrorResponse(fmt.Errorf("uid is not setup")))
+		return
+	}
+	user_id, err := strconv.Atoi(user_id_str)
+	if err != nil {
+		c.JSON(http.StatusUnauthorized, ErrorResponse(fmt.Errorf("uid is not converted to int")))
 		return
 	}
 	user, err := a.GetUser(c, user_id)
@@ -99,9 +104,14 @@ func updateUser(c *gin.Context, a *app.App) {
 		return
 	}
 
-	user_id, ok := uidVal.(int)
+	user_id_str, ok := uidVal.(string)
 	if !ok {
-		c.JSON(http.StatusInternalServerError, ErrorResponse(fmt.Errorf("uid is not an integer")))
+		c.JSON(http.StatusInternalServerError, ErrorResponse(fmt.Errorf("uid is not setup")))
+		return
+	}
+	user_id, err := strconv.Atoi(user_id_str)
+	if err != nil {
+		c.JSON(http.StatusUnauthorized, ErrorResponse(fmt.Errorf("uid is not converted to int")))
 		return
 	}
 	var reqBody UserPut
