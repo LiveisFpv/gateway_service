@@ -43,14 +43,9 @@ func getUser(c *gin.Context, a *app.App) {
 		return
 	}
 
-	user_id_str, ok := uidVal.(string)
+	user_id, ok := uidVal.(int)
 	if !ok {
-		c.JSON(http.StatusInternalServerError, ErrorResponse(fmt.Errorf("uid is not setup")))
-		return
-	}
-	user_id, err := strconv.Atoi(user_id_str)
-	if err != nil {
-		c.JSON(http.StatusUnauthorized, ErrorResponse(fmt.Errorf("uid is not converted to int")))
+		c.JSON(http.StatusInternalServerError, ErrorResponse(fmt.Errorf("uid is not an integer")))
 		return
 	}
 	user, err := a.GetUser(c, user_id)
@@ -68,7 +63,7 @@ func createUser(c *gin.Context, a *app.App) {
 		return
 	}
 
-	user_id, ok := uidVal.(int)
+	user_id, ok := uidVal.(int64)
 	if !ok {
 		c.JSON(http.StatusInternalServerError, ErrorResponse(fmt.Errorf("uid is not an integer")))
 		return
@@ -79,7 +74,7 @@ func createUser(c *gin.Context, a *app.App) {
 		return
 	}
 	user, err := a.CreateUser(c,
-		user_id,
+		int(user_id),
 		reqBody.User_firstName,
 		reqBody.User_lastName,
 		reqBody.User_middleName,
@@ -104,14 +99,9 @@ func updateUser(c *gin.Context, a *app.App) {
 		return
 	}
 
-	user_id_str, ok := uidVal.(string)
+	user_id, ok := uidVal.(int64)
 	if !ok {
-		c.JSON(http.StatusInternalServerError, ErrorResponse(fmt.Errorf("uid is not setup")))
-		return
-	}
-	user_id, err := strconv.Atoi(user_id_str)
-	if err != nil {
-		c.JSON(http.StatusUnauthorized, ErrorResponse(fmt.Errorf("uid is not converted to int")))
+		c.JSON(http.StatusInternalServerError, ErrorResponse(fmt.Errorf("uid is not an integer")))
 		return
 	}
 	var reqBody UserPut
@@ -120,7 +110,7 @@ func updateUser(c *gin.Context, a *app.App) {
 		return
 	}
 	user, err := a.UpdateUser(c,
-		user_id,
+		int(user_id),
 		reqBody.User_firstName,
 		reqBody.User_lastName,
 		reqBody.User_middleName,
