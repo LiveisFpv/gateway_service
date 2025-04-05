@@ -43,7 +43,7 @@ func getUser(c *gin.Context, a *app.App) {
 		return
 	}
 
-	user_id, ok := uidVal.(int64)
+	user_id, ok := uidVal.(float64)
 	if !ok {
 		c.JSON(http.StatusInternalServerError, ErrorResponse(fmt.Errorf("uid is not an integer")))
 		return
@@ -63,7 +63,7 @@ func createUser(c *gin.Context, a *app.App) {
 		return
 	}
 
-	user_id, ok := uidVal.(int64)
+	user_id, ok := uidVal.(float64)
 	if !ok {
 		c.JSON(http.StatusInternalServerError, ErrorResponse(fmt.Errorf("uid is not an integer")))
 		return
@@ -99,7 +99,7 @@ func updateUser(c *gin.Context, a *app.App) {
 		return
 	}
 
-	user_id, ok := uidVal.(int64)
+	user_id, ok := uidVal.(float64)
 	if !ok {
 		c.JSON(http.StatusInternalServerError, ErrorResponse(fmt.Errorf("uid is not an integer")))
 		return
