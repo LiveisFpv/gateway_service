@@ -43,12 +43,12 @@ func getUser(c *gin.Context, a *app.App) {
 		return
 	}
 
-	user_id, ok := uidVal.(int)
+	user_id, ok := uidVal.(int64)
 	if !ok {
 		c.JSON(http.StatusInternalServerError, ErrorResponse(fmt.Errorf("uid is not an integer")))
 		return
 	}
-	user, err := a.GetUser(c, user_id)
+	user, err := a.GetUser(c, int(user_id))
 	if err != nil {
 		c.JSON(http.StatusInternalServerError, ErrorResponse(err))
 		return
