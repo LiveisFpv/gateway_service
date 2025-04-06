@@ -18,8 +18,8 @@ func ProtectedRouter(r *gin.RouterGroup, a *app.App) {
 	r.POST("/edit-profile", func(c *gin.Context) { createUser(c, a) })
 	r.PUT("/edit-profile", func(c *gin.Context) { updateUser(c, a) })
 
-	r.GET("/user/plan_diet", func(c *gin.Context) { GetPlanDiet(c, a) })
-	r.GET("/user/plan_train", func(c *gin.Context) { GetPlanTrain(c, a) })
+	r.GET("/user/diet-plan", func(c *gin.Context) { GetPlanDiet(c, a) })
+	r.GET("/user/training-plan", func(c *gin.Context) { GetPlanTrain(c, a) })
 	r.GET("/user/history", func(c *gin.Context) { GetPlanHistory(c, a) })
 	// r.PUT("/user/history", func(c *gin.Context) { PutPlanHistory(c, a) })
 	r.GET("/dishes/cooking/:dish_id", func(c *gin.Context) { GetDishesbyID(c, a) })
