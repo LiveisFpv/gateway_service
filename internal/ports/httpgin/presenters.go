@@ -184,6 +184,19 @@ type History struct {
 	Date    string  `json:"date"`
 }
 
+type Get_History_Request struct {
+	Date string `json:"date"`
+}
+type Put_History_Request struct {
+	User_id int     `json:"user_id"`
+	Weight  float64 `json:"weight"`
+	Date    string  `json:"date"`
+}
+
+type History_Successs_Response struct {
+	Data History `json:"data"`
+}
+
 type Dishes_Response struct {
 	Data Dishes `json:"data"`
 }

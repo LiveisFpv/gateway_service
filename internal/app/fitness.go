@@ -170,3 +170,41 @@ func (a *App) GetPlanTrain(ctx context.Context, user_id int, date string) (*doma
 	}
 	return plan_train, nil
 }
+
+func (a *App) GetHistory(ctx context.Context, user_id int, date string) (*domain.WeightHistory, error) {
+	req := &fitness_v1.GetHistoryRequest{
+		UserId: int64(user_id),
+		Date:   date,
+	}
+	resp, err := a.client_fitness.GetHistory(ctx, req)
+	if err != nil {
+		return nil, err
+	}
+	history := &domain.WeightHistory{
+		Data: &[]domain.WeightRecord{},
+	}
+	for _, el := range resp.Data {
+		*history.Data = append(*history.Data, domain.WeightRecord{
+			User_id: user_id,
+			Weight:  float32(el.UserWeight),
+			Date:    el.Date,
+		})
+	}
+	return history, nil
+}
+
+// func (a *App) PutHistory(ctx context.Context, user_id int, weight float32, date string) (*domain.WeightRecord, error) {
+// 	req := &fitness_v1.History{
+// 		UserId: int64(user_id),
+// 		UserWeight: float64(weight),
+// 		Date:   date,
+// 	}
+// 	resp, err := a.client_fitness.PutHistory(ctx, req)
+// 	if err != nil {
+// 		return nil, err
+// 	}
+// 	record := &domain.WeightRecord{
+// 		User_id: user_id,
+// 		Weight: resp.weight,
+// 	}
+// }

@@ -6,7 +6,6 @@ import (
 	"gateway_service/internal/domain"
 	"net/http"
 	"strconv"
-	"time"
 
 	"github.com/gin-gonic/gin"
 )
@@ -210,34 +209,77 @@ func GetPlanTrain(c *gin.Context, a *app.App) {
 }
 
 func GetPlanHistory(c *gin.Context, a *app.App) {
+	uidVal, exists := c.Keys["uid"]
+	if !exists {
+		c.JSON(http.StatusUnauthorized, ErrorResponse(fmt.Errorf("uid not found")))
+		return
+	}
+
+	user_id, ok := uidVal.(float64)
+	if !ok {
+		c.JSON(http.StatusInternalServerError, ErrorResponse(fmt.Errorf("uid is not an integer")))
+		return
+	}
+
+	var reqBody Get_History_Request
+	if err := c.ShouldBindJSON(&reqBody); err != nil {
+		c.JSON(http.StatusBadRequest, ErrorResponse(err))
+		return
+	}
+
+	hist, err := a.GetHistory(c, int(user_id), reqBody.Date)
+	if err != nil {
+		c.JSON(http.StatusInternalServerError, ErrorResponse(err))
+		return
+	}
+
+	var result []History
+	for _, el := range *hist.Data {
+		result = append(result, History{
+			Weight: float64(el.Weight),
+			Date:   el.Date,
+		})
+	}
+
 	c.JSON(http.StatusOK, History_Response{
-		&[]History{
-			History{
-				User_id: 1,
-				Weight:  100,
-				Date:    (time.Now().Add(-time.Hour * 24 * 6)).String(),
-			},
-			History{
-				User_id: 1,
-				Weight:  99,
-				Date:    (time.Now().Add(-time.Hour * 24 * 3)).String(),
-			},
-			History{
-				User_id: 1,
-				Weight:  98,
-				Date:    (time.Now().Add(-time.Hour * 24 * 1)).String(),
-			},
-		},
+		Data: &result,
 	})
+
 }
 
-func PutPlanHistory(c *gin.Context, a *app.App) {
-	c.JSON(http.StatusOK, History{
-		User_id: 1,
-		Weight:  98,
-		Date:    (time.Now()).String(),
-	})
-}
+// func PutPlanHistory(c *gin.Context, a *app.App) {
+// 	uidVal, exists := c.Keys["uid"]
+// 	if !exists {
+// 		c.JSON(http.StatusUnauthorized, ErrorResponse(fmt.Errorf("uid not found")))
+// 		return
+// 	}
+
+// 	user_id, ok := uidVal.(float64)
+// 	if !ok {
+// 		c.JSON(http.StatusInternalServerError, ErrorResponse(fmt.Errorf("uid is not an integer")))
+// 		return
+// 	}
+
+// 	var reqBody Put_History_Request
+// 	if err := c.ShouldBindJSON(&reqBody); err != nil {
+// 		c.JSON(http.StatusBadRequest, ErrorResponse(err))
+// 		return
+// 	}
+
+// 	hist, err := a.PutHistory(c, int(user_id), float32(reqBody.Weight), reqBody.Date)
+// 	if err != nil {
+// 		c.JSON(http.StatusInternalServerError, ErrorResponse(err))
+// 		return
+// 	}
+
+// 	c.JSON(http.StatusOK, History_Successs_Response{
+// 		Data: History{
+// 			User_id: int(user_id),
+// 			Weight:  float64(hist.Weight),
+// 			Date:    hist.Date,
+// 		},
+// 	})
+// }
 
 func GetDishesbyID(c *gin.Context, a *app.App) {
 	id, err := strconv.Atoi(c.Param("dish_id"))
