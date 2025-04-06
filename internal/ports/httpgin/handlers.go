@@ -1,6 +1,7 @@
 package httpgin
 
 import (
+	"encoding/json"
 	"fmt"
 	"gateway_service/internal/app"
 	"gateway_service/internal/domain"
@@ -139,6 +140,12 @@ func GetPlanDiet(c *gin.Context, a *app.App) {
 		c.JSON(http.StatusInternalServerError, ErrorResponse(fmt.Errorf("uid is not an integer")))
 		return
 	}
+	dataParam := c.Query("data")
+	var query Get_Plan_Request
+	if err := json.Unmarshal([]byte(dataParam), &query); err != nil {
+		c.JSON(http.StatusBadRequest, gin.H{"error": "Invalid JSON in query parameter"})
+		return
+	}
 	date := c.DefaultQuery("date", "")
 	if date == "" {
 		c.JSON(http.StatusBadRequest, ErrorResponse(fmt.Errorf("Date query parameter is required")))
@@ -180,6 +187,13 @@ func GetPlanTrain(c *gin.Context, a *app.App) {
 	user_id, ok := uidVal.(float64)
 	if !ok {
 		c.JSON(http.StatusInternalServerError, ErrorResponse(fmt.Errorf("uid is not an integer")))
+		return
+	}
+	dataParam := c.Query("data")
+
+	var query Get_Plan_Request
+	if err := json.Unmarshal([]byte(dataParam), &query); err != nil {
+		c.JSON(http.StatusBadRequest, gin.H{"error": "Invalid JSON in query parameter"})
 		return
 	}
 	date := c.DefaultQuery("date", "")
