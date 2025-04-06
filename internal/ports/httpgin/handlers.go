@@ -129,149 +129,83 @@ func updateUser(c *gin.Context, a *app.App) {
 }
 
 func GetPlanDiet(c *gin.Context, a *app.App) {
+	uidVal, exists := c.Keys["uid"]
+	if !exists {
+		c.JSON(http.StatusUnauthorized, ErrorResponse(fmt.Errorf("uid not found")))
+		return
+	}
+
+	user_id, ok := uidVal.(float64)
+	if !ok {
+		c.JSON(http.StatusInternalServerError, ErrorResponse(fmt.Errorf("uid is not an integer")))
+		return
+	}
+	var reqBody Get_Plan_Request
+	if err := c.ShouldBindJSON(&reqBody); err != nil {
+		c.JSON(http.StatusBadRequest, ErrorResponse(err))
+		return
+	}
+	plan, err := a.GetPlanDishes(c, int(user_id), reqBody.Date)
+	if err != nil {
+		c.JSON(http.StatusInternalServerError, ErrorResponse(err))
+		return
+	}
+	var result []Plan_diet
+	for _, el := range *plan.Data {
+		result = append(result, Plan_diet{
+			Dishes_id:   el.Dishes_id,
+			Time:        el.Time,
+			Title:       el.Title,
+			Callory:     el.Callory,
+			Fat:         el.Fat,
+			Protein:     el.Protein,
+			Carbs:       el.Carbs,
+			Description: el.Description,
+			Weight:      el.Weight,
+			Date:        el.Date,
+		})
+	}
+
 	c.JSON(http.StatusOK, Plan_diet_Response{
-		Data: &[]Plan_diet{
-			Plan_diet{
-				Time:        "Завтрак",
-				Title:       "Каша",
-				Callory:     200,
-				Fat:         5,
-				Protein:     10,
-				Carbs:       5,
-				Description: "Вкусно",
-				Weight:      100,
-				User_id:     1,
-				Date:        (time.Now()).String(),
-			},
-			Plan_diet{
-				Time:        "Завтрак",
-				Title:       "Каша",
-				Callory:     200,
-				Fat:         5,
-				Protein:     10,
-				Carbs:       5,
-				Description: "Вкусно",
-				Weight:      100,
-				User_id:     1,
-				Date:        (time.Now().Add(time.Hour * 24)).String(),
-			},
-			Plan_diet{
-				Time:        "Завтрак",
-				Title:       "Каша",
-				Callory:     200,
-				Fat:         5,
-				Protein:     10,
-				Carbs:       5,
-				Description: "Вкусно",
-				Weight:      100,
-				User_id:     1,
-				Date:        (time.Now().Add(time.Hour * 24 * 2)).String(),
-			},
-			Plan_diet{
-				Time:        "Завтрак",
-				Title:       "Каша",
-				Callory:     200,
-				Fat:         5,
-				Protein:     10,
-				Carbs:       5,
-				Description: "Вкусно",
-				Weight:      100,
-				User_id:     1,
-				Date:        (time.Now().Add(time.Hour * 24 * 3)).String(),
-			},
-			Plan_diet{
-				Time:        "Завтрак",
-				Title:       "Каша",
-				Callory:     200,
-				Fat:         5,
-				Protein:     10,
-				Carbs:       5,
-				Description: "Вкусно",
-				Weight:      100,
-				User_id:     1,
-				Date:        (time.Now().Add(time.Hour * 24 * 4)).String(),
-			},
-			Plan_diet{
-				Time:        "Завтрак",
-				Title:       "Каша",
-				Callory:     200,
-				Fat:         5,
-				Protein:     10,
-				Carbs:       5,
-				Description: "Вкусно",
-				Weight:      100,
-				User_id:     1,
-				Date:        (time.Now().Add(time.Hour * 24 * 5)).String(),
-			},
-			Plan_diet{
-				Time:        "Завтрак",
-				Title:       "Каша",
-				Callory:     200,
-				Fat:         5,
-				Protein:     10,
-				Carbs:       5,
-				Description: "Вкусно",
-				Weight:      100,
-				User_id:     1,
-				Date:        (time.Now().Add(time.Hour * 24 * 6)).String(),
-			},
-		},
+		Data: &result,
 	})
 }
 
 func GetPlanTrain(c *gin.Context, a *app.App) {
+	uidVal, exists := c.Keys["uid"]
+	if !exists {
+		c.JSON(http.StatusUnauthorized, ErrorResponse(fmt.Errorf("uid not found")))
+		return
+	}
+
+	user_id, ok := uidVal.(float64)
+	if !ok {
+		c.JSON(http.StatusInternalServerError, ErrorResponse(fmt.Errorf("uid is not an integer")))
+		return
+	}
+	var reqBody Get_Plan_Request
+	if err := c.ShouldBindJSON(&reqBody); err != nil {
+		c.JSON(http.StatusBadRequest, ErrorResponse(err))
+		return
+	}
+	plan, err := a.GetPlanTrain(c, int(user_id), reqBody.Date)
+	if err != nil {
+		c.JSON(http.StatusInternalServerError, ErrorResponse(err))
+		return
+	}
+	var result []Plan_train
+	for _, el := range *plan.Data {
+		result = append(result, Plan_train{
+			Train_id:    el.Train_id,
+			Title:       el.Title,
+			Description: el.Description,
+			Date:        el.Date,
+			User_level:  el.User_level,
+		})
+	}
+
 	c.JSON(http.StatusOK, Plan_train_Response{
-		Data: &[]Plan_train{
-			Plan_train{
-				Title:       "GYM",
-				Description: "БЕГ",
-				User_level:  1,
-				User_Id:     1,
-				Date:        (time.Now().Add(time.Hour * 24 * 0)).String(),
-			},
-			Plan_train{
-				Title:       "GYM",
-				Description: "ПРЕСС КАЧАТЬ",
-				User_level:  1,
-				User_Id:     1,
-				Date:        (time.Now().Add(time.Hour * 24 * 1)).String(),
-			},
-			Plan_train{
-				Title:       "GYM",
-				Description: "ОТЖИМАНИЯ",
-				User_level:  1,
-				User_Id:     1,
-				Date:        (time.Now().Add(time.Hour * 24 * 2)).String(),
-			},
-			Plan_train{
-				Title:       "GYM",
-				Description: "БЕГ",
-				User_level:  1,
-				User_Id:     1,
-				Date:        (time.Now().Add(time.Hour * 24 * 3)).String(),
-			},
-			Plan_train{
-				Title:       "GYM",
-				Description: "ПРЕСС КАЧАТЬ",
-				User_level:  1,
-				User_Id:     1,
-				Date:        (time.Now().Add(time.Hour * 24 * 4)).String(),
-			},
-			Plan_train{
-				Title:       "GYM",
-				Description: "ОТЖИМАНИЯ",
-				User_level:  1,
-				User_Id:     1,
-				Date:        (time.Now().Add(time.Hour * 24 * 5)).String(),
-			},
-			Plan_train{
-				Title:       "GYM",
-				Description: "БЕГ",
-				User_level:  1,
-				User_Id:     1,
-				Date:        (time.Now().Add(time.Hour * 24 * 6)).String(),
-			},
-		},
+		Data: &result,
 	})
 }
 

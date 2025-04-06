@@ -117,3 +117,56 @@ func (a *App) UpdateUser(
 	}
 	return user, nil
 }
+
+func (a *App) GetPlanDishes(ctx context.Context, user_id int, date string) (*domain.Plan_diet, error) {
+	req := &fitness_v1.GetPlanDishesRequest{
+		UserId: int64(user_id),
+		Date:   date,
+	}
+	resp, err := a.client_fitness.GetPlanDishes(ctx, req)
+	if err != nil {
+		return nil, err
+	}
+	plan_diet := &domain.Plan_diet{
+		Data: &[]domain.Diet{},
+	}
+	for _, el := range resp.Data {
+		*plan_diet.Data = append(*plan_diet.Data, domain.Diet{
+			Dishes_id:   int(el.DishesId),
+			Time:        el.Time,
+			Title:       el.DishesTitle,
+			Callory:     el.Kcal,
+			Fat:         el.Fat,
+			Protein:     el.Protein,
+			Carbs:       el.Carbs,
+			Description: el.Description,
+			Weight:      el.DishesWeight,
+			Date:        el.Date,
+		})
+	}
+	return plan_diet, nil
+}
+
+func (a *App) GetPlanTrain(ctx context.Context, user_id int, date string) (*domain.Plan_train, error) {
+	req := &fitness_v1.GetPlanTrainRequest{
+		UserId: int64(user_id),
+		Date:   date,
+	}
+	resp, err := a.client_fitness.GetPlanTrain(ctx, req)
+	if err != nil {
+		return nil, err
+	}
+	plan_train := &domain.Plan_train{
+		Data: &[]domain.Train{},
+	}
+	for _, el := range resp.Data {
+		*plan_train.Data = append(*plan_train.Data, domain.Train{
+			Train_id:    int(el.TrainId),
+			Title:       el.TrainTitle,
+			Description: el.TrainDescription,
+			User_level:  int(el.UserLevel),
+			Date:        el.Date,
+		})
+	}
+	return plan_train, nil
+}

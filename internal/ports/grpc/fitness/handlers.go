@@ -35,3 +35,18 @@ func (c *Client) UpdateUser(
 ) {
 	return c.api.UpdateUser(ctx, req)
 }
+func (c *Client) GetPlanDishes(ctx context.Context, in *fitness.GetPlanDishesRequest) (*fitness.PlanDishesResponse, error) {
+	return c.api.GetPlanDishes(ctx, in)
+}
+func (c *Client) GetPlanTrain(ctx context.Context, in *fitness.GetPlanTrainRequest) (*fitness.PlanTrainResponse, error) {
+	return c.api.GetPlanTrain(ctx, in)
+}
+func (c *Client) GetHistory(ctx context.Context, in *fitness.GetHistoryRequest) (*fitness.HistoryResponse, error) {
+	return c.api.GetHistory(ctx, in)
+}
+func (c *Client) GetTrainInstr(ctx context.Context, in *fitness.GetTrainInstrRequest) (*fitness.TrainInstrResponse, error) {
+	return c.api.GetTrainInstr(ctx, in)
+}
+func (c *Client) GetRecipe(ctx context.Context, in *fitness.GetRecipeRequest) (*fitness.RecipeResponse, error) {
+	return c.api.GetRecipe(ctx, in)
+}

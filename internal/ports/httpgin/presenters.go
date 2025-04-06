@@ -154,8 +154,11 @@ type Train struct {
 	Description string `json:"description"`
 	User_level  int    `json:"user_level"`
 }
-
+type Get_Plan_Request struct {
+	Date string `json:"date"`
+}
 type Plan_diet struct {
+	Dishes_id   int     `json:"dishes_id"`
 	Time        string  `json:"time"`
 	Title       string  `json:"title"`
 	Callory     float64 `json:"callory"`
@@ -164,15 +167,14 @@ type Plan_diet struct {
 	Carbs       float64 `json:"carbs"`
 	Description string  `json:"description"`
 	Weight      float64 `json:"weight"`
-	User_id     int     `json:"user_id"`
 	Date        string  `json:"date"`
 }
 
 type Plan_train struct {
+	Train_id    int    `json:"train_id"`
 	Title       string `json:"title"`
 	Description string `json:"description"`
 	User_level  int    `json:"user_level"`
-	User_Id     int    `json:"user_id"`
 	Date        string `json:"date"`
 }
 
