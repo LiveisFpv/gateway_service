@@ -139,12 +139,12 @@ func GetPlanDiet(c *gin.Context, a *app.App) {
 		c.JSON(http.StatusInternalServerError, ErrorResponse(fmt.Errorf("uid is not an integer")))
 		return
 	}
-	var reqBody Get_Plan_Request
-	if err := c.ShouldBindJSON(&reqBody); err != nil {
-		c.JSON(http.StatusBadRequest, ErrorResponse(err))
+	date := c.DefaultQuery("date", "")
+	if date == "" {
+		c.JSON(http.StatusBadRequest, ErrorResponse(fmt.Errorf("Date query parameter is required")))
 		return
 	}
-	plan, err := a.GetPlanDishes(c, int(user_id), reqBody.Date)
+	plan, err := a.GetPlanDishes(c, int(user_id), date)
 	if err != nil {
 		c.JSON(http.StatusInternalServerError, ErrorResponse(err))
 		return
@@ -182,12 +182,12 @@ func GetPlanTrain(c *gin.Context, a *app.App) {
 		c.JSON(http.StatusInternalServerError, ErrorResponse(fmt.Errorf("uid is not an integer")))
 		return
 	}
-	var reqBody Get_Plan_Request
-	if err := c.ShouldBindJSON(&reqBody); err != nil {
-		c.JSON(http.StatusBadRequest, ErrorResponse(err))
+	date := c.DefaultQuery("date", "")
+	if date == "" {
+		c.JSON(http.StatusBadRequest, ErrorResponse(fmt.Errorf("Date query parameter is required")))
 		return
 	}
-	plan, err := a.GetPlanTrain(c, int(user_id), reqBody.Date)
+	plan, err := a.GetPlanTrain(c, int(user_id), date)
 	if err != nil {
 		c.JSON(http.StatusInternalServerError, ErrorResponse(err))
 		return
