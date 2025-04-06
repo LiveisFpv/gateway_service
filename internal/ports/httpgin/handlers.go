@@ -146,7 +146,7 @@ func GetPlanDiet(c *gin.Context, a *app.App) {
 		c.JSON(http.StatusBadRequest, gin.H{"error": "Invalid JSON in query parameter"})
 		return
 	}
-	date := c.DefaultQuery("date", "")
+	date := query.Date
 	if date == "" {
 		c.JSON(http.StatusBadRequest, ErrorResponse(fmt.Errorf("Date query parameter is required")))
 		return
@@ -196,7 +196,7 @@ func GetPlanTrain(c *gin.Context, a *app.App) {
 		c.JSON(http.StatusBadRequest, gin.H{"error": "Invalid JSON in query parameter"})
 		return
 	}
-	date := c.DefaultQuery("date", "")
+	date := query.Date
 	if date == "" {
 		c.JSON(http.StatusBadRequest, ErrorResponse(fmt.Errorf("Date query parameter is required")))
 		return
