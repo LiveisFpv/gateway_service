@@ -159,22 +159,22 @@ type Get_Plan_Request struct {
 }
 type Plan_diet struct {
 	Dishes_id   int     `json:"dishes_id"`
-	Time        string  `json:"time"`
-	Title       string  `json:"title"`
-	Callory     float64 `json:"callory"`
-	Fat         float64 `json:"fat"`
-	Protein     float64 `json:"protein"`
-	Carbs       float64 `json:"carbs"`
-	Description string  `json:"description"`
-	Weight      float64 `json:"weight"`
+	Time        string  `json:"dish_time"`
+	Title       string  `json:"dish_title"`
+	Callory     float64 `json:"dish_kcal"`
+	Fat         float64 `json:"dish_proteins"`
+	Protein     float64 `json:"dish_fats"`
+	Carbs       float64 `json:"dish_carbs"`
+	Description string  `json:"dish_desc"`
+	Weight      float64 `json:"dish_weight"`
 	Date        string  `json:"date"`
 }
 
 type Plan_train struct {
-	Train_id    int    `json:"train_id"`
-	Title       string `json:"title"`
-	Description string `json:"description"`
-	User_level  int    `json:"user_level"`
+	Train_id    int    `json:"training_id"`
+	Title       string `json:"training_title"`
+	Description string `json:"training_desc"`
+	User_level  int    `json:"training_user_level"`
 	Date        string `json:"date"`
 }
 
