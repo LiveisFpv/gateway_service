@@ -235,13 +235,19 @@ func GetPlanHistory(c *gin.Context, a *app.App) {
 		return
 	}
 
-	var reqBody Get_History_Request
-	if err := c.ShouldBindJSON(&reqBody); err != nil {
-		c.JSON(http.StatusBadRequest, ErrorResponse(err))
+	dataParam := c.Query("data")
+	var query Get_Plan_Request
+	if err := json.Unmarshal([]byte(dataParam), &query); err != nil {
+		c.JSON(http.StatusBadRequest, gin.H{"error": "Invalid JSON in query parameter"})
+		return
+	}
+	date := query.Date
+	if date == "" {
+		c.JSON(http.StatusBadRequest, ErrorResponse(fmt.Errorf("Date query parameter is required")))
 		return
 	}
 
-	hist, err := a.GetHistory(c, int(user_id), reqBody.Date)
+	hist, err := a.GetHistory(c, int(user_id), date)
 	if err != nil {
 		c.JSON(http.StatusInternalServerError, ErrorResponse(err))
 		return
