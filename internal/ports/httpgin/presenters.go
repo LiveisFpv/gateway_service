@@ -13,28 +13,28 @@ type RegisterRequest struct {
 }
 
 type UserPut struct {
-	User_firstName      *string  `json:"user_firstName"`
-	User_lastName       *string  `json:"user_lastName"`
-	User_middleName     *string  `json:"user_middleName"`
-	User_birthday       *string  `json:"user_birthday"`
-	User_height         *int32   `json:"user_height"`
-	User_weight         *float64 `json:"user_weight"`
+	User_firstName      *string  `json:"user_firstName     "`
+	User_lastName       *string  `json:"user_lastName      "`
+	User_middleName     *string  `json:"user_middleName    "`
+	User_birthday       *string  `json:"user_birthday      "`
+	User_height         *int32   `json:"user_height        "`
+	User_weight         *float64 `json:"user_weight        "`
 	User_fitness_target *string  `json:"user_fitness_target"`
-	User_sex            *bool    `json:"user_sex"`
-	User_level          *int32   `json:"user_level"`
+	User_sex            *bool    `json:"user_sex           "`
+	User_level          *int32   `json:"user_level         "`
 }
 
 type User struct {
-	User_id             int     `json:"user_id"`
-	User_firstName      string  `json:"user_firstName"`
-	User_lastName       string  `json:"user_lastName"`
-	User_middleName     *string `json:"user_middleName"`
-	User_birthday       string  `json:"user_birthday"`
-	User_height         int     `json:"user_height"`
-	User_weight         float64 `json:"user_weight"`
+	User_id             int     `json:"user_id            "`
+	User_firstName      string  `json:"user_firstName     "`
+	User_lastName       string  `json:"user_lastName      "`
+	User_middleName     *string `json:"user_middleName    "`
+	User_birthday       string  `json:"user_birthday      "`
+	User_height         int     `json:"user_height        "`
+	User_weight         float64 `json:"user_weight        "`
 	User_fitness_target string  `json:"user_fitness_target"`
-	User_sex            bool    `json:"user_sex"`
-	User_level          int     `json:"user_level"`
+	User_sex            bool    `json:"user_sex           "`
+	User_level          int     `json:"user_level         "`
 }
 
 type UserResponse struct {
@@ -156,16 +156,24 @@ type Train struct {
 }
 
 type Plan_diet struct {
-	Dishes_id int     `json:"dishes_id"`
-	Weight    float64 `json:"weight"`
-	User_id   int     `json:"user_id"`
-	Date      string  `json:"date"`
+	Time        string  `json:"time"`
+	Title       string  `json:"title"`
+	Callory     float64 `json:"callory"`
+	Fat         float64 `json:"fat"`
+	Protein     float64 `json:"protein"`
+	Carbs       float64 `json:"carbs"`
+	Description string  `json:"description"`
+	Weight      float64 `json:"weight"`
+	User_id     int     `json:"user_id"`
+	Date        string  `json:"date"`
 }
 
 type Plan_train struct {
-	Train_id int    `json:"train_id"`
-	User_Id  int    `json:"user_id"`
-	Date     string `json:"date"`
+	Title       string `json:"title"`
+	Description string `json:"description"`
+	User_level  int    `json:"user_level"`
+	User_Id     int    `json:"user_id"`
+	Date        string `json:"date"`
 }
 
 type History struct {
