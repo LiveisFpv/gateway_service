@@ -38,11 +38,11 @@ type User struct {
 }
 
 type UserResponse struct {
-	Data User
+	Data User `json:"data"`
 }
 
 type Get_Pictures_Response struct {
-	Data *[]Pictures_ID_Response
+	Data *[]Pictures_ID_Response `json:"data"`
 }
 
 type Pictures_ID_Response struct {
